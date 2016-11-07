@@ -16,13 +16,24 @@
 				</div>
 			</div>
 			<ul class="nav navbar-nav navbar-right">
-				<li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-				<li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+			<?php
+				session_start();
+				if($_SESSION['userid']==NULL){
+			?>
+				<li><a href="register.php"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+				<li><a href="login.php"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+			<?php
+			}else{
+				?>
+				<li><a>Hi <?php echo $_SESSION['userid']; ?></a></li>
+				<?php
+			}
+			?>
 			</ul>
 		</div>
 		<div class="container-fluid">
 			<ul class="nav navbar-nav">
-				<li class="active"><a href="#">Home</a></li>
+				<li class="active"><a href="index.php">Home</a></li>
 				<li><a href="#">Page 1</a></li>
 				<li><a href="#">Page 2</a></li> 
 				<li><a href="#">Page 3</a></li> 

@@ -45,10 +45,9 @@ class MySQLFactory implements SQLObserver
 		} 
 	}
 
-	public function GetData($fields,$table){
-		$sql = "SELECT $fields FROM $table";
+	public function GetData($fields,$table,$condition=true){
+		$sql = "SELECT $fields FROM `$table` WHERE $condition";
 		$result = $this->conn->query($sql);
-
 		if ($result->num_rows > 0) {
 			return $result;
 		} else {
