@@ -1,18 +1,19 @@
 <?php require_once('header.php'); ?>
 <?php require_once('phpClass/SQLClass.php'); ?>
+<script type="text/javascript" src="js/validation.js"></script>
 	<div class="container">
-		<form class="well" action="registerserver.php" method="post">
+		<form class="well" onsubmit="return validate();" action="registerserver.php" method="post">
 			<div class="form-group">
 				<label for="sname">Student Name:</label>
-				<input type="text" name="sname" class="form-control" id="sname">
+				<input type="text" name="sname" class="form-control" id="sname" required>
 			</div>
 			<div class="form-group">
 				<label for="email">Email address:</label>
-				<input type="email" name="email" class="form-control" id="email">
+				<input type="email" name="email" class="form-control" id="email" required>
 			</div>
 			<div class="form-group">
 				<label for="PRN">PRN:</label>
-				<input type="number" name="prn" class="form-control" id="PRN">
+				<input type="number" name="prn" class="form-control" id="PRN" required>
 			</div>
 			<div class="form-group">
 				<label for="year">Year:</label>
@@ -25,14 +26,10 @@
 			</div>
 			<div class="form-group">
 				<label for="pwd">Password:</label>
-				<input type="Password" name="pass" class="form-control" id="pwd">
-			</div>
-			<div class="form-group">
-				<label for="pwd">Conform Password:</label>
-				<input type="Password" name="pass1" class="form-control" id="pwd1">
+				<input type="Password" name="pass" class="form-control" id="pwd" required>
 			</div>
 			<button type="submit" class="btn btn-default">Submit</button>
 		</form>
 	</div>
-	
+
 <?php require_once('footer.php'); ?>
