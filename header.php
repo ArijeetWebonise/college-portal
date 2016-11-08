@@ -18,14 +18,18 @@
 			<ul class="nav navbar-nav navbar-right">
 			<?php
 				session_start();
-				if($_SESSION['userid']==NULL){
+				if(!isset($_SESSION['userid'])){
 			?>
 				<li><a href="register.php"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
 				<li><a href="login.php"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
 			<?php
 			}else{
 				?>
-				<li><a>Hi <?php echo $_SESSION['userid']; ?></a></li>
+				<li><a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span>Hi <?php echo $_SESSION['userid']; ?></a>
+					<ul class="dropdown-menu">
+						<li><a href="logoutserver.php">Logout</a></li>
+					</ul>
+				</li>
 				<?php
 			}
 			?>

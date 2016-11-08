@@ -62,7 +62,7 @@ class MySQLFactory implements SQLObserver
 	public function InsertData($table,$fields,$value){
 		$sql = "INSERT INTO $table ($fields) VALUES ($value)";
 
-		if ($conn->query($sql) === TRUE) {
+		if ($this->conn->query($sql) === TRUE) {
 			return TRUE;
 		} else {
 			return FALSE;

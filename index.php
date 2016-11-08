@@ -15,10 +15,9 @@
 				</h3>
 
 				<ul>
-					<li>1</li>
-					<li>2</li>
-					<li>3</li>
-					<li>4</li>
+				<?php for ($i=0; $i < 20; $i++) { 
+					?><li><?php echo $i; ?></li><?php
+				} ?>
 				</ul>
 			</div>
 		</div>

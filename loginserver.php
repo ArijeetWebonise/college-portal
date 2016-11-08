@@ -2,7 +2,7 @@
 session_start();
 	require_once('phpClass/SQL.php'); 
 
-	$userid=$_REQUEST['userid'];
+	$userid=$_REQUEST['email'];
 	$pass=$_REQUEST['pass'];
 
 	$db=SQLFacade::CreateMySQL('localhost','root','','college');
@@ -15,5 +15,6 @@ session_start();
 		header('Location: http://localhost/');
 		exit;
 	}
+	header('Location: http://localhost/');
 ?>
 
