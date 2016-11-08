@@ -15,12 +15,21 @@
 				<input type="number" name="prn" class="form-control" id="PRN">
 			</div>
 			<div class="form-group">
+				<label for="year">Year:</label>
+				<select name="year" class="form-control" id="year">
+					<option value="1">First</option>
+					<option value="2">Second</option>
+					<option value="3">Third</option>
+					<option value="4">Forth</option>
+				</select>
+			</div>
+			<div class="form-group">
 				<label for="pwd">Password:</label>
-				<input type="text" name="pass" class="form-control" id="pwd">
+				<input type="Password" name="pass" class="form-control" id="pwd">
 			</div>
 			<div class="form-group">
 				<label for="pwd">Conform Password:</label>
-				<input type="text" name="pass1" class="form-control" id="pwd1">
+				<input type="Password" name="pass1" class="form-control" id="pwd1">
 			</div>
 			<button type="submit" class="btn btn-default">Submit</button>
 		</form>
