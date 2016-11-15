@@ -3,6 +3,10 @@
 	<div class="container">
 		<form class="well" action="loginserver.php" method="post">
 			<div class="form-group">
+				<label for="prn">PRN:</label>
+				<input type="number" class="form-control" name="prn" id="prn">
+			</div>
+			<div class="form-group">
 				<label for="email">Email address:</label>
 				<input type="email" class="form-control" name="email" id="email">
 			</div>

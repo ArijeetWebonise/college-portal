@@ -4,8 +4,20 @@
 	<div class="container">
 		<form class="well" onsubmit="return validate();" action="registerserver.php" method="post">
 			<div class="form-group">
-				<label for="sname">Student Name:</label>
-				<input type="text" name="sname" class="form-control" id="sname" required>
+				<label for="fname">First Name:</label>
+				<input type="text" name="fname" class="form-control" id="fname" required>
+			</div>
+			<div class="form-group">
+				<label for="mname">Middle Name:</label>
+				<input type="text" name="mname" class="form-control" id="mname" required>
+			</div>
+			<div class="form-group">
+				<label for="lname">Last Name:</label>
+				<input type="text" name="lname" class="form-control" id="lname" required>
+			</div>
+			<div class="form-group">
+				<label for="phone">Phone:</label>
+				<input type="number" name="phone" class="form-control" id="phone" required>
 			</div>
 			<div class="form-group">
 				<label for="email">Email address:</label>

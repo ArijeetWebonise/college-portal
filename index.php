@@ -2,10 +2,11 @@
 	<div class="container">
 		<div class="col-sm-12 col-md-8 col-lg-8">
 			<div class="row">
-				<img src="image/banner1.jpg" class="banner">
-			</div>
-			<div class="row">
-				Other Data
+				<div class="hoverimg parallax">
+				</div>
+				<div style="background-color: grey; color: white;">Other Data</div>
+				<div class="hoverimg2 parallax">
+				</div>
 			</div>
 		</div>
 		<div class="col-sm-12 col-md-4 col-lg-4">

@@ -1,0 +1,62 @@
+#outside{
+	color: #fff900;
+	text-shadow: 5px 5px 5px red;
+	font-weight: bold;
+	height: 580px;
+	position: relative;
+}
+#outside a{
+	color: #fff900;
+	text-shadow: 5px 5px 5px red;
+	font-weight: bold;
+}
+#outside .backimg{
+	height: 580px;
+	width: 100%;
+	opacity: 0.8;
+	position: absolute;
+	z-index: 0;
+}
+.slidercontrol{
+	position: absolute;
+	top: 550px;
+	left: 630px;
+}
+.slidercontrol span:active {
+	text-shadow: 2px 2px 2px blue;
+}
+.slidercontrol span:hover {
+	text-shadow: 5px 5px 5px blue;
+}
+.viewlist{
+	list-style: none;
+}
+.viewlist li{
+	float: left;
+	margin: 15px;
+	position: relative;
+}
+.viewlist li span{
+	position: absolute;
+	top: 200px;
+	left: 80px;
+}
+.attendence{
+	content: url("image/attendence.png");
+}
+ul.viewlist li a img {
+    width: 200px;
+}
+@keyframes hovereffect{
+	0%{background-color: transparent;}
+	100%{background-color: rgba(0, 100, 255, 0.38);}
+	25%{background-color: rgba(0, 133, 255, 0.38);}
+	50%{background-color: rgba(0, 153, 255, 0.38);}
+	75%{background-color: rgba(0, 173, 255, 0.38);}
+	100%{background-color: rgba(0, 183, 255, 0.38);}
+}
+ul.viewlist li:hover{
+	animation-duration: 2s;
+	animation-name: hovereffect;
+	background-color: rgba(0, 183, 255, 0.38);
+}
