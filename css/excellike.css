@@ -1,0 +1,9 @@
+.editabletable{
+	width: 1330px;
+	overflow: scroll;
+	height: 550px;
+}
+
+.editabletable tr td input{
+	width: 112px;
+}

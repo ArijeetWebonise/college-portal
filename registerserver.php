@@ -4,12 +4,17 @@
 	$fname=$_REQUEST['fname'];
 	$mname=$_REQUEST['mname'];
 	$lname=$_REQUEST['lname'];
+	$pname=$_REQUEST['pname'];
 	$email=$_REQUEST['email'];
-	$number=$_REQUEST['phone'];
+	$branch=$_REQUEST['branch'];
 	$pass=$_REQUEST['pass'];
 	$year=$_REQUEST['year'];
-	$ret=$db->InsertData('students','`prn`,`first name`,`middle name`,`last name`,`email`,`number`,`password`,`year`,`accountType`',"$prn,'$fname','$mname','$lname','$email',`phone`,MD5('$pass'),$year,'student'");
+	$number=$_REQUEST['phone'];
+	$pnumber=$_REQUEST['pphone'];
+	$ret=$db->InsertData('account',"`First Name`, `Middle Name`, `Last Name`, `prn`, `email`, `mobile`, `parentName`, `parentphone`, `password`, `year`, `class/branch`, `accountType`, `parrentpassword`","'$fname', '$mname', '$lname', $prn, '$email', $number, '$pname', $pnumber, MD5('$pass'), $year, '$branch', 'Student', MD5('$prn')");
 	if($ret){
 		echo 'registerd';
+	}else{
+		echo 'error';
 	}
 ?>

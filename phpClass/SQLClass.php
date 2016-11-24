@@ -28,7 +28,7 @@ function arraytostring($arr){
 				break;
 		}
 	}
-	var_dump($field);
+	// var_dump($field);
 }
 
 /**
@@ -83,7 +83,6 @@ class MySQLFactory implements SQLObserver
 
 	public function InsertData($table,$fields,$value){
 		$sql = "INSERT INTO $table ($fields) VALUES ($value)";
-
 		if ($this->conn->query($sql) === TRUE) {
 			return TRUE;
 		} else {
