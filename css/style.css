@@ -1,3 +1,7 @@
+body, html {
+    height: 100%;
+}
+
 .login{
 	color:#9d9d9d;
 	padding: 15px 15px;
@@ -10,4 +14,47 @@
 
 .banner{
 	width: 100%;
+}
+
+.hoverimg {
+background-image: url("../image/banner1.jpg");
+	width: 100%;
+	float:left;
+overflow:hidden;
+position:relative;
+text-align:center;
+cursor:default;
+}
+
+.hoverimg2 {
+background-image: url("../js/vender/jparallax/images/map.jpg");
+	width: 100%;
+	float:left;
+overflow:hidden;
+position:relative;
+text-align:center;
+cursor:default;
+}
+
+.hoverimg img {
+display:block;
+position:relative;
+-webkit-transition:all 12s linear;
+transition:all 12s linear;
+}
+
+.hoverimg:hover img{
+	-ms-transform:scale(1.2);
+	-webkit-transform:scale(1.2);
+	transform:scale(1.2);
+}
+
+.parallax {
+	height: 100%;
+	min-height:500px;
+    /* Create the parallax scrolling effect */
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
 }

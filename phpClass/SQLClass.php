@@ -3,6 +3,7 @@
 interface SQLObserver{
 	public function GetData($fields,$table);
 	// public function InsertData($table,$newdata);
+	//public function createTable();
 	public function fetch($result);
 	public function UpdateData($table,$newdata,$condition);
 	public function DeleteData($table,$condition);
@@ -27,7 +28,7 @@ function arraytostring($arr){
 				break;
 		}
 	}
-	var_dump($field);
+	// var_dump($field);
 }
 
 /**
@@ -45,10 +46,9 @@ class MySQLFactory implements SQLObserver
 		} 
 	}
 
-	public function GetData($fields,$table){
-		$sql = "SELECT $fields FROM $table";
+	public function GetData($fields,$table,$condition=true){
+		$sql = "SELECT $fields FROM `$table` WHERE $condition";
 		$result = $this->conn->query($sql);
-
 		if ($result->num_rows > 0) {
 			return $result;
 		} else {
@@ -60,10 +60,30 @@ class MySQLFactory implements SQLObserver
 		return $result->fetch_assoc();
 	}
 
+	public function createTable($table,$data){
+		$sql='CREATE TABLE '.$table.' (';
+		$f=FALSE;
+		foreach ($data as $col) {
+			if ($f) {
+				$sql.=',';
+			}
+			$f=TRUE;
+			$sql.=$col['name'].' '.$col['type'];
+			foreach ($col['option'] as $option) {
+				$sql.=' '.$option;
+			}
+		}
+		$sql.=')';
+		if($this->conn->query($sql)===TRUE){
+			return TRUE;
+		}else{
+			return FALSE;
+		}
+	}
+
 	public function InsertData($table,$fields,$value){
 		$sql = "INSERT INTO $table ($fields) VALUES ($value)";
-
-		if ($conn->query($sql) === TRUE) {
+		if ($this->conn->query($sql) === TRUE) {
 			return TRUE;
 		} else {
 			return FALSE;

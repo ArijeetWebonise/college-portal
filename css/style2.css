@@ -1,0 +1,67 @@
+html body{
+	background: url('../image/banner1.jpg');
+	background-size: cover;
+
+}
+html body:before{
+	content: '';
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	background-image: linear-gradient(to bottom,#002f4b,#dc4225);
+	opacity: .6; 
+}
+
+.centered {
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	/* bring your own prefixes */
+	transform: translate(-50%, -50%);
+}
+.centered>div>img{
+	width: 200px;
+	border: 4px solid #4480ff;
+	background-color: #44b9fa;
+}
+
+.frontslider{
+	position: absolute;
+	top: 105px;
+	background-color: rgba(138, 109, 59, 1);
+	color: #ffffff;
+	z-index: 100;	
+}
+
+.leftslider:hover ~ .frontslider{
+	opacity: 0;
+	top: 20px;
+}
+
+.leftslider{
+	position: absolute;
+	top: 105px;
+	padding: 23px;
+	background-color: rgba(138, 109, 59, 1);
+	color: #ffffff;	
+	overflow: hidden;
+	max-width: 0px;
+}
+
+@keyframes slidereffect{
+	from{
+		max-width: 0px;
+	}
+	to{
+		max-width: 1000px;
+	}
+}
+
+.leftslider:hover{
+	animation-name: slidereffect;
+	animation-duration: 2s;
+	animation-iteration-count: 1;
+	max-width: 1000px;
+}
