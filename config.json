@@ -1,0 +1,9 @@
+{
+	"hostname":"192.168.0.105",
+	"database":{
+		"dbhost":"localhost",
+		"username":"root",
+		"password":"",
+		"dbname":"college"
+	}
+}

@@ -16,9 +16,14 @@ deny from all
 
 RewriteEngine On
 
+# Handle requests for "login"
+RewriteRule ^login/([A-Za-z0-9-]+)/?$    login.php?user=$1    [NC,L]
+RewriteRule ^login/?$    login.php?user=student    [NC,L]
 
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-l
+# Handle requests for "Registration"
+RewriteRule ^register/([A-Za-z0-9-]+)/?$    register.php?user=$1    [NC,L]
+RewriteRule ^register/?$    register.php?user=student    [NC,L]
+RewriteRule ^saveuser?$    registerserver.php    [NC,L]
 
-RewriteRule ^(.*)$ test.php?url=$1 [QSA,L]
+# Handle requests for "Account"
+RewriteRule ^account/([A-Za-z0-9-]+)/([A-Za-z0-9-]+)/?$    account.php?type=$1&user=$2    [NC,L]
