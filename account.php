@@ -2,6 +2,7 @@
 define('imagelocation', '../../Media/image/');
 define('imgsize', '200');
 require_once("phpClass/sql.php");
+require_once("menu.php");
 
 function render($data, $type){
 	?>
@@ -65,6 +66,9 @@ if(isset($_REQUEST['user'])&&isset($_REQUEST['type'])){
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
+	<header>
+		<?php menurender(); ?>
+	</header>
 	<div class="container-fluid bluebox">
 		<center>
 			<img src="<?php echo constant("imagelocation"); ?><?php echo $user['profilepic']!=null?$user['profilepic']:'profile-picture-placeholder.jpg'; ?>" width="<?php echo constant("imgsize"); ?>" height="<?php echo constant("imgsize"); ?>" class="img-circle">

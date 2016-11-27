@@ -1,7 +1,12 @@
 body, html {
     height: 100%;
 }
-
+.searchbox input{
+	border: 0px;
+}
+.searchbox input[type=search]{
+	width: 250px;
+}
 .login{
 	color:#9d9d9d;
 	padding: 15px 15px;
