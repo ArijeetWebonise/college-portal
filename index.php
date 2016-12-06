@@ -1,6 +1,7 @@
-<?php
-	if(isset($_REQUEST['url'])){
-		$url=explode('/', $_REQUEST['url']);
-		$url[0]($url[1]);
-	}
+<?php 
+	include_once("controller/Controller.php");
+
+	$controller = new Controller();
+	$controller->invoke();
+
 ?>

@@ -43,7 +43,6 @@ class PHPMailerFactory
 	}
 
 	public function send(){
-		var_dump($this->mail);
 		if(!$this->mail->send()) {
 		    return  array('status'=>false,'error'=>$this->mail->ErrorInfo);
 		} else {
