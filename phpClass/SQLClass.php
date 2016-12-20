@@ -46,8 +46,11 @@ class MySQLFactory implements SQLObserver
 		} 
 	}
 
-	public function GetData($fields,$table,$condition=true){
+	public function GetData($fields,$table,$condition=true,$clause=NULL){
 		$sql = "SELECT $fields FROM `$table` WHERE $condition";
+		if($clause!=NULL){
+			$sql.=$clause;
+		}
 		$result = $this->conn->query($sql);
 		if ($result->num_rows > 0) {
 			return $result;
@@ -83,6 +86,7 @@ class MySQLFactory implements SQLObserver
 
 	public function InsertData($table,$fields,$value){
 		$sql = "INSERT INTO $table ($fields) VALUES ($value)";
+		var_dump($sql);
 		if ($this->conn->query($sql) === TRUE) {
 			return TRUE;
 		} else {
@@ -93,7 +97,7 @@ class MySQLFactory implements SQLObserver
 	public function UpdateData($table,$newdata,$condition){
 		$sql = "UPDATE $table SET $newdata WHERE $condition";
 
-		if ($conn->query($sql) === TRUE) {
+		if ($this->conn->query($sql) === TRUE) {
 			return TRUE;
 		} else {
 			return FALSE;

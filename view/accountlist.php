@@ -2,7 +2,7 @@
 <head></head>
 
 <body>
-
+<?php getnav(); ?>
 <table>
 	<tr><td>Name</td><td>PRN</td><td>UserName</td><td>Email</td></tr>
 	<?php 

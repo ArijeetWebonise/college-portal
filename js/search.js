@@ -1,5 +1,4 @@
-$(document).ready(function(){
-    var submitIcon = $('.searchbox-icon');
-    var inputBox = $('.searchbox-input');
-    var searchBox = $('.searchbox');
-}
+$( function() {
+  availableTags=[];
+    $( "#search" ).autocomplete({      source: "/view/admin/searchresult.php"	});
+  } );

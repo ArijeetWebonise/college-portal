@@ -1,5 +1,29 @@
 <?php
+session_start();
+include_once("controller/sessioncontroller.php");
 include_once("model/Model.php");
+
+function getnav()
+{
+	$site=$GLOBALS['site'];
+	include_once 'view/admin/menupage.php';
+}
+
+$scripts=array();
+
+function enqueueScript($type,$link){
+	array_push($GLOBALS['scripts'], array('type'=>$type,'link'=>$link));
+} 
+
+function getScripts(){
+	foreach ($GLOBALS['scripts'] as $script) {
+		if ($script['type']=='js') {
+			?><script src="<?php echo $script['link']; ?>"></script><?php
+		}elseif ($script['type']=='css'){
+			?><link rel="stylesheet" type="text/css" href="<?php echo $script['link']; ?>"><?php
+		}
+	}
+}
 
 class Controller {
 	public $model;
@@ -8,20 +32,69 @@ class Controller {
     {  
         $this->model = new Model();
     } 
-	
-	public function invoke()
+
+	public function invoke($control)
 	{
-		if (!isset($_GET['account']))
-		{
-			// no special account is requested, we'll show a list of all available accounts
-			$accounts = $this->model->getaccountList();
-			include 'view/accountlist.php';
-		}
-		else
-		{
-			// show the requested account
-			$account = $this->model->getaccount($_GET['account']);
-			include 'view/viewaccount.php';
+		$site=$GLOBALS['site'];
+		if($control=="login"){
+			if(!isset($_REQUEST['type'])){
+				header("location:".constant("hostname")."/login/student");
+			}else if($_REQUEST['type']=='loginsubmit'){
+				include 'view/loginsubmit.php';
+			}else{
+				include 'view/login.php';
+			}
+		}else if($control=="admin"){
+			if($_REQUEST['type']=='editmenu'){
+				include 'view/admin/editmenu.php';
+			}else if($_REQUEST['type']=='editmenuserver'){
+				include 'view/admin/editmenuserver.php';
+			}
+		}else if($control=="register"){
+			include 'view/register.php';
+		}else if($control=="forum"){
+			if(isset($_REQUEST['type'])){
+				if($_REQUEST['type']=='view'){
+					include 'view/forum/viewquestion.php';
+				}else if($_REQUEST['type']=='addAns'){
+					include 'view/forum/'.$_REQUEST['type'].'submit.php';
+				}else{
+					if(isset($_REQUEST['user'])){
+						if($_REQUEST['user']=='result'){
+							include 'view/forum/'.$_REQUEST['type'].'submit.php';
+						}else{
+							header("location:".constant("hostname")."/forum/".$_REQUEST['type']);
+						}
+					}else{
+						include 'view/forum/'.$_REQUEST['type'].'.php';
+					}
+				}
+			}else{
+				include 'view/forum/viewlist.php';
+			}
+		}else{
+			if(isset($_REQUEST['type'])){
+				if (!isset($_REQUEST['user']))
+				{
+					$accounts = $this->model->getaccountList();
+					$site=$GLOBALS['site'];
+					include 'view/'.$control.'list.php';
+				}
+				else
+				{
+					if($_REQUEST['type']=='student'){
+						$account = $this->model->getaccount($_REQUEST['user']);
+						$site=$GLOBALS['site'];
+						include 'view/view'.$control.'.php';
+					}else if($_REQUEST['type']=='teacher'){
+						$account = $this->model->getTeacheraccount($_REQUEST['user']);
+						$site=$GLOBALS['site'];
+						include 'view/viewteacher'.$control.'.php';
+					}
+				}
+			}else{
+				header("location:".constant("hostname"));
+			}
 		}
 	}
 }
