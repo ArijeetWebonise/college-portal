@@ -49,7 +49,7 @@ class MySQLFactory implements SQLObserver
 	public function GetData($fields,$table,$condition=true,$clause=NULL){
 		$sql = "SELECT $fields FROM `$table` WHERE $condition";
 		if($clause!=NULL){
-			$sql.=$clause;
+			$sql.=" ".$clause;
 		}
 		$result = $this->conn->query($sql);
 		if ($result->num_rows > 0) {
@@ -96,7 +96,6 @@ class MySQLFactory implements SQLObserver
 	
 	public function UpdateData($table,$newdata,$condition){
 		$sql = "UPDATE $table SET $newdata WHERE $condition";
-
 		if ($this->conn->query($sql) === TRUE) {
 			return TRUE;
 		} else {

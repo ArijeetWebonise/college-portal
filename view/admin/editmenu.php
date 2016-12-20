@@ -16,12 +16,31 @@
 <?php getnav(); ?>
 
 <ul id="sortable">
-<?php for ($i=0; $i < 5; $i++) { 
+<?php 
+$ret=$GLOBALS['db']->getData("*",'main_menu',"TRUE","ORDER BY `order` ASC");
+while ($row=$GLOBALS['db']->fetch($ret)) {
+	$ret1=$GLOBALS['db']->getData("*",'sub_menu',"`m_menu_id`='".$row['m_menu_id']."'","ORDER BY `order` ASC");
+	if($ret1){
+		?>
+	<li id="item<?php echo $row['m_menu_id']; ?>" class="ui-state-default hasItems"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span><?php echo $row['m_menu_name']; ?>
+		<ul class="sublist">
+		<?php
+		while ($row1=$GLOBALS['db']->fetch($ret1)) {
+			?>
+			<li id="<?php echo $row1['m_menu_id'].'_'.$row1['s_menu_id']; ?>"><?php echo $row1['s_menu_name']; ?></li>
+			<?php
+		}
+	}else{
+		?>
+		</ul>
+	<li id="item<?php echo $row['m_menu_id']; ?>" class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span><?php echo $row['m_menu_name']; ?>
+		<?php
+	}
 	?>
-	<li id="item<?php echo $i; ?>" class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item <?php echo $i+1; ?></li>
+	</li>
 	<?php
-} ?>
-<?php ?>
+}
+?>
 </ul>
 
 </body>

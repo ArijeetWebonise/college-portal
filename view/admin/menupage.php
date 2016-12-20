@@ -16,9 +16,9 @@
 		<div class="collapse navbar-collapse" id="myNavbar">
 			<ul class="nav navbar-nav">
 				<?php 
-	$ret=$GLOBALS['db']->GetData('*','main_menu','TRUE'," ORDER BY `m_menu_id`,`order` ASC");
+	$ret=$GLOBALS['db']->GetData('*','main_menu','TRUE',"ORDER BY `order` ASC");
 	while ($row=$GLOBALS['db']->fetch($ret)) {
-		$ret2=$GLOBALS['db']->GetData('*','sub_menu',"m_menu_id='".$row['m_menu_id']."'"," ORDER BY `order` ASC");
+		$ret2=$GLOBALS['db']->GetData('*','sub_menu',"m_menu_id='".$row['m_menu_id']."'"," ORDER BY `m_menu_id`, `order` ASC");
 		if($ret2){
 				?>
 				<li class="dropdown">
