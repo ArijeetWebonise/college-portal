@@ -128,7 +128,35 @@ class Model {
 		return $allAccounts[$title];
 	}
 	
-	
+	public function getEventList()
+	{
+		$arr=array();
+		if($ret=$GLOBALS['db']->getData('*','events')){
+			while ($row=$GLOBALS['db']->fetch($ret)) {
+				$arr[$row['eventid']]=array(
+					'event id'=>$row['eventid'],
+					'event name'=>$row['event name'],
+					'event desp'=>$row['event desp'],
+					'creator'=>$row['creator'],
+					'creator type'=>$row['creatortype'],
+					'location'=>$row['location'],
+					'start date'=>$row['start date'],
+					'end date'=>$row['end date'],
+					'start time'=>$row['start time'],
+					'end time'=>$row['end time'],
+					'isVirtual'=>$row['is virtual'],
+					'show Map'=>$row['showmap']
+				);
+			}
+		}
+		return $arr;
+	}	
+
+	public function getEvent($eventid)
+	{
+		$eventlist = $this->getEventList();
+		return $eventlist[$eventid];
+	}
 }
 
 ?>

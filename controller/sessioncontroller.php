@@ -9,6 +9,9 @@
 		} 
 		public static function getSession($target)
 		{
+			if(!isset($_SESSION[$target])){
+				return FALSE;
+			}
 			return $_SESSION[$target];
 		}
 		public static function destroySession()

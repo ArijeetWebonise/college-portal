@@ -18,6 +18,18 @@
 				<?php 
 	$ret=$GLOBALS['db']->GetData('*','main_menu','TRUE',"ORDER BY `order` ASC");
 	while ($row=$GLOBALS['db']->fetch($ret)) {
+		if(SessionManager::getSession('privileage')===FALSE){
+			$privileage=$row['privileage']+0;
+			if($privileage<5){
+				continue;
+			}
+		}else{
+			$pri=SessionManager::getSession('privileage')+0;
+			$privileage=$row['privileage']+0;
+			if($privileage<=$pri){
+				continue;
+			}
+		}
 		$ret2=$GLOBALS['db']->GetData('*','sub_menu',"m_menu_id='".$row['m_menu_id']."'"," ORDER BY `m_menu_id`, `order` ASC");
 		if($ret2){
 				?>
@@ -53,8 +65,8 @@
 				</div>
 			</div> 
 			<ul class="nav navbar-nav navbar-right">
-				<li><a href="<?php echo $site->getHost(); ?>/login/student"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-				<li><a href="<?php echo $site->getHost(); ?>/register/student"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+				<li><a href="<?php echo $site->getHost(); ?>/register/student"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+				<li><a href="<?php echo $site->getHost(); ?>/login/student"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
 			</ul>
 		</div>
 	</div>

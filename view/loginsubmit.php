@@ -12,5 +12,6 @@
 	$ret=$GLOBALS['db']->GetData("UserName, prn",$table,"email='".$_REQUEST['id']."' and password=MD5('".$_REQUEST['password']."')");
 	while ($row=$GLOBALS['db']->fetch($ret)) {
 		SessionManager::setSession("prn",$row['prn']);
+		SessionManager::setSession("privileage",'1');
 	}
 ?>

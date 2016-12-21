@@ -49,6 +49,10 @@ class Controller {
 				include 'view/admin/editmenu.php';
 			}else if($_REQUEST['type']=='editmenuserver'){
 				include 'view/admin/editmenuserver.php';
+			}else if($_REQUEST['type']=='addmenuserver'){
+				include 'view/admin/addmenuserver.php';
+			}else if($_REQUEST['type']=='menuremove'){
+				include 'view/admin/removemenuserver.php';
 			}
 		}else if($control=="register"){
 			include 'view/register.php';
@@ -77,6 +81,7 @@ class Controller {
 				if (!isset($_REQUEST['user']))
 				{
 					$accounts = $this->model->getaccountList();
+					$event=$this->model->getEventList();
 					$site=$GLOBALS['site'];
 					include 'view/'.$control.'list.php';
 				}
@@ -90,10 +95,14 @@ class Controller {
 						$account = $this->model->getTeacheraccount($_REQUEST['user']);
 						$site=$GLOBALS['site'];
 						include 'view/viewteacher'.$control.'.php';
+					}else{
+						// var_dump($_REQUEST);
+						$event = $this->model->getEvent($_REQUEST['user']);
+						include 'view/view'.$control.'.php';
 					}
 				}
 			}else{
-				header("location:".constant("hostname"));
+				header("location:".$site->getHost());
 			}
 		}
 	}
