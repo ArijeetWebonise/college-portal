@@ -78,15 +78,21 @@ class Controller {
 			}
 		}else{
 			if(isset($_REQUEST['type'])){
-				if (!isset($_REQUEST['user']))
+				if (!isset($_REQUEST['user']) && $_REQUEST['type']=='view')
 				{
 					$accounts = $this->model->getaccountList();
 					$event=$this->model->getEventList();
 					$site=$GLOBALS['site'];
 					include 'view/'.$control.'list.php';
-				}
-				else
-				{
+				}else if($_REQUEST['type']=='create'){
+					if(isset($_REQUEST['user'])){
+						if($_REQUEST['user']=='submit'){
+							include 'view/create'.$_REQUEST['page'].'.php';
+						}
+					}else{
+						include 'view/add'.$_REQUEST['page'].'.php';
+					}
+				}else{
 					if($_REQUEST['type']=='student'){
 						$account = $this->model->getaccount($_REQUEST['user']);
 						$site=$GLOBALS['site'];
@@ -95,8 +101,7 @@ class Controller {
 						$account = $this->model->getTeacheraccount($_REQUEST['user']);
 						$site=$GLOBALS['site'];
 						include 'view/viewteacher'.$control.'.php';
-					}else{
-						// var_dump($_REQUEST);
+					}else if($_REQUEST['page']=='event'){
 						$event = $this->model->getEvent($_REQUEST['user']);
 						include 'view/view'.$control.'.php';
 					}

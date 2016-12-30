@@ -1,4 +1,4 @@
-[
+{"student":[
 <?php 
 	$tern=$_REQUEST['term'];
 	$list=array("ActionScript",
@@ -35,4 +35,4 @@ $f=FALSE;
 	}
 
 ?>
-]
+]}
