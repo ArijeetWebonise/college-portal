@@ -49,7 +49,6 @@ while ($row=$GLOBALS['db']->fetch($ret)) {
 		<li class="active"><a data-toggle="pill" href="#addmenu">Add Menu Item</a></li>
 		<li><a data-toggle="pill" href="#editmenu">Edit Menu</a></li>
 		<li><a data-toggle="pill" href="#deletemenu">Delete Menu</a></li>
-		<li><a data-toggle="pill" href="#menu3">Menu 3</a></li>
 	</ul>
 
 	<div class="tab-content">
@@ -132,9 +131,11 @@ $ret1=$GLOBALS['db']->getData('*','main_menu','TRUE',"ORDER BY `order` ASC");
 					</div>
 					<div id="collapse<?php echo $i; ?>" class="panel-collapse collapse">
 						<div class="panel-body">
-							<form>
+							<form action="editmenuserver" method="post">
 								<div class="form-group">
 									<label>Contain in</label>
+									<input type="hidden" name="menutype" value="mainmenu">
+									<input type="hidden" name="menuid" value="<?php echo $row['m_menu_id']; ?>">
 									<select class="form-control">
 										<option value="main" selected="selected">Main</option>
 										<?php
@@ -153,6 +154,9 @@ while ($row1=$GLOBALS['db']->fetch($ret1)) {
 								<div class="form-group">
 									<label>Menu URL</label>
 									<input class="form-control" name="menuURL" value="<?php echo $row['m_menu_link']; ?>">
+								</div>
+								<div class="form-group">
+									<input type="submit" name="submit">
 								</div>
 							</form>
 						</div>
@@ -177,6 +181,8 @@ $ret1=$GLOBALS['db']->getData('*','main_menu');
 							<form>
 								<div class="form-group">
 									<label>Contain in</label>
+									<input type="hidden" name="menutype" value="submenu">
+									<input type="hidden" name="menuid" value="<?php echo $row['s_menu_id']; ?>">
 									<select class="form-control">
 										<option value="main">Main</option>
 										<?php
@@ -209,10 +215,6 @@ while ($row1=$GLOBALS['db']->fetch($ret1)) {
 }
 				?>
 			</div>
-		</div>
-		<div id="menu3" class="tab-pane fade">
-			<h3>Menu 3</h3>
-			<p>Eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
 		</div>
 	</div>
 	

@@ -25,6 +25,7 @@
 				<li><span class="glyphicon glyphicon-envelope"></span> <?php echo $account->email; ?></li>
 				<li><i class="fa fa-birthday-cake"></i> <?php echo $account->Birthday; ?></li>
 				<li><i class="fa fa-male"></i><i class="fa fa-female"></i> <?php echo $account->sex=='M'?'Male':'Female'; ?></li>
+				<li><i class="glyphicon glyphicon-ok-sign"></i> <?php echo $account->attendance; ?></li>
 				<li><span class="glyphicon glyphicon-dashboard"></span> <?php echo $account->year; 
 				switch ($account->year) {
 					case '1':

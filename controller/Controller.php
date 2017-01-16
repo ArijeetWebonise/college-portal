@@ -44,6 +44,47 @@ class Controller {
 			}else{
 				include 'view/login.php';
 			}
+		}else if($control=='api'){
+			if($_REQUEST['type']=="students"){
+				$accounts = $this->model->getaccountList();
+				$clas=$_REQUEST['user'];
+				include_once 'view/api/accountlist.php';
+			}
+		}else if($control=='teacher'){
+			if($_REQUEST['type']=='attendance'){
+				if($_REQUEST['user']=='view'){
+					if($_REQUEST['id']==''){
+						$attendance=$this->model->getAttendanceList();
+						include_once 'view/teacher/'.$_REQUEST['type'].'list.php';
+					}else{
+						$attendance=$this->model->getAttendance($_REQUEST['id']);
+						include_once 'view/teacher/view'.$_REQUEST['type'].'.php';
+					}
+				}else if($_REQUEST['user']=='add'){
+					$classes=$this->model->getClasses();
+					if(!isset($_REQUEST['id']))
+					{
+						if(!isset($_REQUEST['submit']))
+						{
+							include_once 'view/teacher/addAttendance.php';
+						}else{
+							$accounts = $this->model->getaccountList();
+							include_once 'view/teacher/addAttendance2.php';
+						}
+					}else{
+							$accounts = $this->model->getaccountList();
+							foreach ($accounts as $key => $value) {
+								if(isset($_REQUEST[$key])){
+									if($this->model->insertAttendance($value->prn)){
+										header("Location:".$site->getHost());
+									}
+								}
+							}
+							var_dump($_REQUEST);
+					}
+				}
+			}
+			
 		}else if($control=="admin"){
 			if($_REQUEST['type']=='editmenu'){
 				include 'view/admin/editmenu.php';
@@ -76,6 +117,20 @@ class Controller {
 			}else{
 				include 'view/forum/viewlist.php';
 			}
+		}else if($control=="event"){
+			if(isset($_REQUEST['user'])){
+				if($_REQUEST['user']=='submit'){
+					include 'view/create'.$_REQUEST['page'].'.php';
+				}
+			}else{
+				include 'view/add'.$_REQUEST['page'].'.php';
+			}
+		}else if($control=="timetable"){
+			$timetable=$this->model->getTimeTablelist();
+			$tt=$timetable[$_REQUEST['type']];
+			$days=array('Monday','Tuesday','Wednessday','Thuesday','Friday');
+			$time=array('10:30-11:30','11:30-12:30','12:30-1:15','1:15-2:15','2:15-3:15','3:15-3:30','3:30-4:30','4:30-5:30');
+			include_once 'view/timetable.php';
 		}else{
 			if(isset($_REQUEST['type'])){
 				if (!isset($_REQUEST['user']) && $_REQUEST['type']=='view')
@@ -90,20 +145,36 @@ class Controller {
 							include 'view/create'.$_REQUEST['page'].'.php';
 						}
 					}else{
+						var_dump($_REQUEST);
 						include 'view/add'.$_REQUEST['page'].'.php';
 					}
 				}else{
-					if($_REQUEST['type']=='student'){
-						$account = $this->model->getaccount($_REQUEST['user']);
-						$site=$GLOBALS['site'];
-						include 'view/view'.$control.'.php';
-					}else if($_REQUEST['type']=='teacher'){
-						$account = $this->model->getTeacheraccount($_REQUEST['user']);
-						$site=$GLOBALS['site'];
-						include 'view/viewteacher'.$control.'.php';
-					}else if($_REQUEST['page']=='event'){
-						$event = $this->model->getEvent($_REQUEST['user']);
-						include 'view/view'.$control.'.php';
+					if(!isset($_REQUEST['user'])||$_REQUEST['user']==''){
+						if($_REQUEST['type']=='student'){
+							$accounts = $this->model->getaccountlist();
+							$site=$GLOBALS['site'];
+							include 'view/'.$control.'list.php';
+						}else if($_REQUEST['type']=='teacher'){
+							$account = $this->model->getTeacheraccountlist();
+							$site=$GLOBALS['site'];
+							include 'view/teacher'.$control.'list.php';
+						}else if($_REQUEST['page']=='event'){
+							$event = $this->model->getEventlist();
+							include 'view/'.$control.'list.php';
+						}
+					}else{
+						if($_REQUEST['type']=='student'){
+							$account = $this->model->getaccount($_REQUEST['user']);
+							$site=$GLOBALS['site'];
+							include 'view/view'.$control.'.php';
+						}else if($_REQUEST['type']=='teacher'){
+							$account = $this->model->getTeacheraccount($_REQUEST['user']);
+							$site=$GLOBALS['site'];
+							include 'view/viewteacher'.$control.'.php';
+						}else if($_REQUEST['page']=='event'){
+							$event = $this->model->getEvent($_REQUEST['user']);
+							include 'view/view'.$control.'.php';
+						}
 					}
 				}
 			}else{

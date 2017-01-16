@@ -13,12 +13,13 @@ class Model {
 	public function getAccountList()
 	{
 		$list=array();
-		$ret=$this->db->GetData('*','account');
+		$ret=$this->db->GetData('*','student');
 		while($row=$this->db->fetch($ret)){
 			$firstname=$row['First Name'];
 			$middlename=$row['Middle Name'];
 			$lastname=$row['Last Name'];
 			$username=$row['UserName'];
+			$attendance=$row['Attendances'];
 			$prn=$row['prn'];
 			$email=$row['email'];
 			$address=$row['Address'];
@@ -45,6 +46,7 @@ class Model {
 				'prn'=>$prn,
 				'email'=>$email,
 				'Address'=>$address,
+				'Attendance'=>$attendance,
 				'LAddress'=>$laddress,
 				'qualification'=>$quali,
 				'skills'=>$skills,
@@ -152,10 +154,81 @@ class Model {
 		return $arr;
 	}	
 
+	public function insertAttendance($stu)
+	{
+		if($ret=$GLOBALS['db']->InsertData("attendance","`Date Of Class`,`period`,`prn`,`attendance`","'".$_REQUEST['dateofattendance']."',".$_REQUEST['period'].",".$stu.", 1")){
+			return TRUE;
+		}else{
+			die("ERROR");
+		}
+	}
+
 	public function getEvent($eventid)
 	{
 		$eventlist = $this->getEventList();
 		return $eventlist[$eventid];
+	}
+
+	public function getAttendanceList(){
+		$arr=array();
+		if($ret=$GLOBALS['db']->getData('*','attendance_list')){
+			while ($row=$GLOBALS['db']->fetch($ret)) {
+		$name=$row['First Name'];
+		if($row['Middle Name']!=''){
+			$name.=$row['Middle Name'];
+		}
+		$name.=' '.$row['Last Name'];
+				$arr[$row['UserName']]=array(
+					'name'=>$name,
+					'prn'=>$row['prn'],
+					'UserName'=>$row['UserName'],
+					'Date Of Class'=>$row['Date of Class'],
+					'Period'=>$row['class'],
+					'attendance'=>$row['attendance']=='1'?TRUE:FALSE
+				);
+			}
+		}
+		return $arr;
+	}
+
+	public function getAttendance($username){
+		return $this->getAttendanceList()[$username];
+	}
+	private function getTimeTableday($class,$day){
+		$tt=array();
+		if($ret=$GLOBALS['db']->getData('*','timetabledb',"`day`='".$day."' AND `class`='".$class."'")){
+			while ($row=$GLOBALS['db']->fetch($ret)) {
+				$tt[$row['period']]= array(
+					'subject'=>$row['subject'],
+					'type'=> $row['type']
+				);
+			}
+		}
+		return $tt;
+	}
+	public function getClasses()
+	{
+		$arr=array();
+		if($ret=$GLOBALS['db']->getData('DISTINCT `class`','timetabledb')){
+			while ($row=$GLOBALS['db']->fetch($ret)) {
+				array_push($arr, $row['class']);
+			}
+		}
+		return $arr;
+	}
+	public function getTimeTablelist()
+	{
+		$tt=array();
+		if($ret=$GLOBALS['db']->getData('DISTINCT `class`, `day`','timetabledb')){
+			while ($row=$GLOBALS['db']->fetch($ret)) {
+				 $tt[$row['class']][$row['day']]=$this->getTimeTableday($row['class'],$row['day']);
+			}
+		}
+		return $tt;
+	}
+	public function getTimeTable($class)
+	{
+		return $this->getTimeTablelist()[$class];
 	}
 }
 

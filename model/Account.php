@@ -15,6 +15,7 @@ class Account {
 	public $Birthday;
 	public $qualification;
 	public $skills;
+	public $attendance;
 	public $accomplishments;
 	public $workexp;
 	public $sex;
@@ -35,6 +36,7 @@ class Account {
 		$this->email=$data['email'];
 		$this->mobile=$data['mobile'];
 		$this->address=$data['Address'];
+		$this->attendance=$data['Attendance'];
 		$this->laddress=$data['LAddress'];
 		$this->qualification=$data['qualification'];
 		$this->skills=$data['skills'];

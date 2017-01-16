@@ -96,6 +96,7 @@ class MySQLFactory implements SQLObserver
 	
 	public function UpdateData($table,$newdata,$condition){
 		$sql = "UPDATE $table SET $newdata WHERE $condition";
+		var_dump($sql);
 		if ($this->conn->query($sql) === TRUE) {
 			return TRUE;
 		} else {

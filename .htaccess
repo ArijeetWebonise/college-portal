@@ -13,3 +13,4 @@ RewriteEngine On
 RewriteRule ^([A-Za-z0-9-]+)/?$    index.php?page=$1    [NC,L]
 RewriteRule ^([A-Za-z0-9-]+)/([A-Za-z0-9-]+)?$    index.php?page=$1&type=$2    [NC,L]
 RewriteRule ^([A-Za-z0-9-]+)/([A-Za-z0-9-]+)/([A-Za-z0-9-]+)?$    index.php?page=$1&type=$2&user=$3    [NC,L]
+RewriteRule ^([A-Za-z0-9-]+)/([A-Za-z0-9-]+)/([A-Za-z0-9-]+)/([A-Za-z0-9-]+)?$    index.php?page=$1&type=$2&user=$3&id=$4    [NC,L]
