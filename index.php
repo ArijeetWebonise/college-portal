@@ -9,7 +9,7 @@
 	if(isset($_REQUEST['page'])){
 		$controller->invoke($_REQUEST['page']);
 	}else{
-		include_once 'view/main/index.php';
+		$controller->invoke('home');
 	}
 
 ?>

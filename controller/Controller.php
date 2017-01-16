@@ -7,6 +7,13 @@ function getnav()
 {
 	$site=$GLOBALS['site'];
 	include_once 'view/admin/menupage.php';
+	other();
+}
+function getnavhome()
+{
+	$site=$GLOBALS['site'];
+	include_once 'view/admin/menupage.php';
+	home();
 }
 
 $scripts=array();
@@ -37,6 +44,7 @@ class Controller {
 	{
 		$site=$GLOBALS['site'];
 		if($control=="home"){
+			$events=$this->model->getEventList();
 			include_once 'view/main/index.php';
 		}else if($control=="login"){
 			if(!isset($_REQUEST['type'])){
@@ -120,12 +128,20 @@ class Controller {
 				include 'view/forum/viewlist.php';
 			}
 		}else if($control=="event"){
+			$event=$this->model->getEventList();
 			if(isset($_REQUEST['user'])){
 				if($_REQUEST['user']=='submit'){
-					include 'view/create'.$_REQUEST['page'].'.php';
+					include_once 'view/create'.$_REQUEST['page'].'.php';
+				}else{
+					$event=$this->model->getEvent($_REQUEST['user']);
+					include_once 'view/view'.$_REQUEST['page'].'.php';
 				}
 			}else{
-				include 'view/add'.$_REQUEST['page'].'.php';
+				if($_REQUEST['type']=='add'){
+					include_once 'view/add'.$_REQUEST['page'].'.php';
+				}else if ($_REQUEST['type']=='view') {
+					include_once 'view/'.$_REQUEST['page'].'list.php';
+				}
 			}
 		}else if($control=="timetable"){
 			$timetable=$this->model->getTimeTablelist();

@@ -1,3 +1,7 @@
+<?php function other()
+{
+	$site=$GLOBALS['site'];
+	?>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
   <link rel="stylesheet" href="/resources/demos/style.css">
   <!-- <script src="https://code.jquery.com/jquery-1.12.4.js"></script> -->
@@ -71,3 +75,67 @@
 		</div>
 	</div>
 </nav>
+	<?php
+} 
+
+function home()
+{
+	?>
+	<nav class="navbar navbar-inverse">
+		<div class="container-fluid">
+			<div class="col-sm-3">
+				<div class="navbar-header">
+					<a class="navbar-brand" href="#">WebSiteName</a>
+				</div>
+			</div>
+			<ul class="nav navbar-nav navbar-right">
+				<li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+				<li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+			</ul>
+		</div>
+		<div class="container-fluid">
+			<ul class="nav navbar-nav">
+				<?php 
+	$ret=$GLOBALS['db']->GetData('*','main_menu','TRUE',"ORDER BY `order` ASC");
+	while ($row=$GLOBALS['db']->fetch($ret)) {
+		if(SessionManager::getSession('privileage')===FALSE){
+			$privileage=$row['privileage']+0;
+			if($privileage<5){
+				continue;
+			}
+		}else{
+			$pri=SessionManager::getSession('privileage')+0;
+			$privileage=$row['privileage']+0;
+			if($privileage<=$pri){
+				continue;
+			}
+		}
+		$ret2=$GLOBALS['db']->GetData('*','sub_menu',"m_menu_id='".$row['m_menu_id']."'"," ORDER BY `m_menu_id`, `order` ASC");
+		if($ret2){
+				?>
+				<li class="dropdown">
+					<a class="dropdown-toggle" data-toggle="dropdown" href="<?php echo $row['m_menu_link']; ?>"><?php echo $row['m_menu_name']; ?><span class="caret"></span></a>
+				<ul class="dropdown-menu">
+		<?php
+			while ($row2=$GLOBALS['db']->fetch($ret2)) {
+				?>
+					<li><a href="<?php echo $row2['s_menu_link']; ?>"><?php echo $row2['s_menu_name']; ?></a></li>
+				<?php } ?>
+				</ul>
+				</li>
+			<?php
+		}else{
+			?>
+			<li><a href="<?php echo $row['m_menu_link']; ?>"><?php echo $row['m_menu_name']; ?></a></li>
+			<?php
+		}
+		?>
+		<?php
+	}
+				?>
+			</ul>
+		</div>
+	</nav>
+	<?php
+}
+?>
