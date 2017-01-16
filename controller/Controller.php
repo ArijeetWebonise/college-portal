@@ -36,7 +36,9 @@ class Controller {
 	public function invoke($control)
 	{
 		$site=$GLOBALS['site'];
-		if($control=="login"){
+		if($control=="home"){
+			include_once 'view/main/index.php';
+		}else if($control=="login"){
 			if(!isset($_REQUEST['type'])){
 				header("location:".constant("hostname")."/login/student");
 			}else if($_REQUEST['type']=='loginsubmit'){
