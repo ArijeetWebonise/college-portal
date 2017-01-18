@@ -54,11 +54,79 @@ class Controller {
 			}else{
 				include 'view/login.php';
 			}
+		}else if($control=="test"){
+			if(isset($_REQUEST['type'])){
+				if ($_REQUEST['type']=='file') {
+					if(!isset($_REQUEST['user'])){
+						include_once 'view/test/filetest.php';
+					}else{
+						include_once 'view/test/filesubmit.php';
+					}
+				}else{
+					include_once 'view/test/testserver.php';
+				}
+			}else{
+				include_once 'view/test/test.php';
+			}
+		}else if($control=="quiz"){
+			if($_REQUEST['type']=='view'){
+				if(isset($_REQUEST['user'])){	
+					$quiz=$this->model->GetQuiz($_REQUEST['user']);
+					include_once 'view/quiz/viewquiz.php';
+				}else{
+					$quiz=$this->model->GetQuizlist();
+					include_once 'view/quiz/quizlist.php';
+				}
+			}else if($_REQUEST['type']=='add'){
+				if(isset($_REQUEST['user'])){
+					include_once 'view/quiz/addquiz2.php';
+				}else{
+					include_once 'view/quiz/addquiz.php';
+				}
+			}
+		}else if($control=="account"){
+			if(!isset($_REQUEST['user'])||$_REQUEST['user']==''){
+					if($_REQUEST['type']=='student'){
+						$accounts = $this->model->getaccountlist();
+						$site=$GLOBALS['site'];
+						include 'view/'.$control.'list.php';
+					}else if($_REQUEST['type']=='teacher'||$_REQUEST['type']=='admin'){
+						$account = $this->model->getTeacheraccountlist();
+						$site=$GLOBALS['site'];
+						include 'view/teacherlist.php';
+					}else if($_REQUEST['page']=='event'){
+						$event = $this->model->getEventlist();
+						include 'view/'.$control.'list.php';
+					}
+				}else{
+					if($_REQUEST['type']=='student'){
+						$account = $this->model->getaccount($_REQUEST['user']);
+						$site=$GLOBALS['site'];
+						include 'view/view'.$control.'.php';
+					}else if($_REQUEST['type']=='teacher'||$_REQUEST['type']=='admin'){
+						$account = $this->model->getTeacheraccount($_REQUEST['user']);
+						$site=$GLOBALS['site'];
+						include 'view/viewteacher'.$control.'.php';
+					}else if($_REQUEST['page']=='event'){
+						$event = $this->model->getEvent($_REQUEST['user']);
+						include 'view/view'.$control.'.php';
+					}
+				}
 		}else if($control=='api'){
 			if($_REQUEST['type']=="students"){
 				$accounts = $this->model->getaccountList();
 				$clas=$_REQUEST['user'];
 				include_once 'view/api/accountlist.php';
+			}else if ($_REQUEST['type']=="search") {
+				$accounts=$this->model->searchStudents($_REQUEST['search']);
+				$teachers=$this->model->searchFacalties($_REQUEST['search']);
+				include_once 'view/api/search.php';
+			}else if($_REQUEST['type']=="imageupload"){
+				include_once 'view/api/uploadimage.php';
+			}
+		}else if($control=='quiz'){
+			if($_REQUEST['type']=='add'){
+				include_once 'view/quiz/addquiz.php';
 			}
 		}else if($control=='teacher'){
 			if($_REQUEST['type']=='attendance'){
@@ -84,7 +152,8 @@ class Controller {
 					}else{
 							$accounts = $this->model->getaccountList();
 							foreach ($accounts as $key => $value) {
-								if(isset($_REQUEST[$key])){
+								if(isset($_REQUEST[$key])&&$_REQUEST[$key]=='1'){
+									
 									if($this->model->insertAttendance($value->prn)){
 										header("Location:".$site->getHost());
 									}

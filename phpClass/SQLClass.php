@@ -48,6 +48,7 @@ class MySQLFactory implements SQLObserver
 
 	public function GetData($fields,$table,$condition=true,$clause=NULL){
 		$sql = "SELECT $fields FROM `$table` WHERE $condition";
+		// var_dump($sql);
 		if($clause!=NULL){
 			$sql.=" ".$clause;
 		}

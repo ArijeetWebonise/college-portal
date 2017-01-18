@@ -75,6 +75,7 @@ class TAccount {
 	public $Workshops;
 	public $Achievements;
 	public $profile;
+	public $type;
 
 	public function __construct($data)  
 	{ 
@@ -94,12 +95,14 @@ class TAccount {
 		$this->aoi=$data['Area Of Interest'];
 		$this->Birthday=$data['Birthday'];
 		$this->email=$data['email'];
+		$this->Achievements=$data['Achievements'];
 		$this->mobile=$data['Phone'];
 		$this->PublicationDetails=$data['Publication Details'];
 		$this->pass=$data['pass'];
 		$this->sex=$data['sex'];
 		$this->Workshops=$data['Workshops'];
 		$this->ExtraActivities=$data['Extra Activities'];
+		$this->type=$data['type'];
 	} 
 }
 ?>

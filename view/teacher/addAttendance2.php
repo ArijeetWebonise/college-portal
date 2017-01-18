@@ -8,6 +8,7 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="<?php echo $site->getHost(); ?>/js/select.js"></script>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" type="text/css" href="<?php echo $site->getHost(); ?>/css/main.css">
 </head>
@@ -38,14 +39,16 @@
 				<input type="number" name="period" class="form-control" value="<?php echo $_REQUEST['period'] ?>">
 			</div>
 			<table class="table">
-				<tr><th>Name</th><th>Attendance</th></tr>
+			<button id="Toggle-select">All Absent</button>
+				<tr><th>Name</th><th>Present</th><th>Absent</th></tr>
 				<tbody class="studentlist">
 					<?php
 						foreach ($accounts as $account) {
 							?>
 					<tr>
 						<td><?php echo $account->firstname; ?></td>
-						<td><input type="checkbox" name="<?php echo $account->username; ?>"></td>
+						<td><div class="radio"><label><input type="radio" class="presentradio" name="<?php echo $account->username; ?>" value="1" checked></label></div></td>
+						<td><div class="radio"><label><input type="radio" class="absentradio" name="<?php echo $account->username; ?>" value="0"></label></div></td>
 					</tr>
 					<?php
 						}

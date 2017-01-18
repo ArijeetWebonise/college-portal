@@ -59,14 +59,16 @@
 				?>
 			</ul>
 			<div class="navbar-form navbar-left">
-				<div class="input-group">
-					<input type="text" class="form-control" id="search" placeholder="Search">
-					<div class="input-group-btn">
-						<button class="btn btn-default" type="submit">
-							<i class="glyphicon glyphicon-search"></i>
-						</button>
+				<form method="post" action="<?php echo $site->getHost(); ?>/api/search">
+					<div class="input-group">
+						<input type="text" class="form-control" name="search" id="search" placeholder="Search">
+						<div class="input-group-btn">
+							<button class="btn btn-default" type="submit">
+								<i class="glyphicon glyphicon-search"></i>
+							</button>
+						</div>
 					</div>
-				</div>
+				</form>
 			</div> 
 			<ul class="nav navbar-nav navbar-right">
 				<li><a href="<?php echo $site->getHost(); ?>/register/student"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>

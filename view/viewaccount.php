@@ -12,98 +12,78 @@
 </head>
 
 <body>
-
 	<?php getnav(); ?>
-	<div class="container-fluid well bluebox">
-		<center>
-			<img src="<?php echo $account->profile; ?>" class="img-circle" alt="<?php echo $account->username; ?>" width="204" height="204"><br>
-			<span class="nameblock"><strong><?php echo $account->firstname.' ' . $account->middlename.' ' .$account->lastname; ?></strong></span>
-		</center>
-		<div class="container col-sm-offset-3">
-			<ul class="nav navbar-nav iconlist">
-				<li><span class="glyphicon glyphicon-user"></span> <?php echo $account->prn; ?></li>
-				<li><span class="glyphicon glyphicon-envelope"></span> <?php echo $account->email; ?></li>
-				<li><i class="fa fa-birthday-cake"></i> <?php echo $account->Birthday; ?></li>
-				<li><i class="fa fa-male"></i><i class="fa fa-female"></i> <?php echo $account->sex=='M'?'Male':'Female'; ?></li>
-				<li><i class="glyphicon glyphicon-ok-sign"></i> <?php echo $account->attendance; ?></li>
-				<li><span class="glyphicon glyphicon-dashboard"></span> <?php echo $account->year; 
-				switch ($account->year) {
-					case '1':
-						echo "st";
-						break;
-					case '2':
-						echo "nd";
-						break;
-					case '3':
-						echo "rd";
-						break;
-					case '4':
-						echo "th";
-						break;
-				}
-				echo " year";
-				?></li>
-				<li><span class="glyphicon glyphicon-tasks"></span> <?php echo $account->class; ?></li>
-			</ul>
-		</div>
-	</div>
 	<div class="container">
-		<div class="row">
-			<div class="well col-sm-6"><span class="glyphicon glyphicon-home"></span> (Permanent) <?php echo $account->address; ?></div>
-			<div class="well col-sm-6"><span class="glyphicon glyphicon-home"></span> (Local) <?php echo $account->laddress; ?></div>
-		</div>
-		<?php if($account->qualification!=NULL){ ?>
-		<div class="row well">
-			<h3>Qualification</h3>
-			<ul>
-			<?php foreach ($account->qualification as $qvalue) {
-				echo "<li>".$qvalue."</li>";
-			} ?>
+		<div class="col-sm-3 well">
+			<img src="<?php echo $account->profile; ?>" class="img-circle profilepic">
+			<ul class="list-group">
+				<li class="list-group-item"><?php echo $_REQUEST['type']; ?></li>
+				<li class="list-group-item">Email: <?php echo $account->email; ?></li>
+				<li class="list-group-item">PRN: <?php echo $account->prn; ?></li>
+				<li class="list-group-item">Birthday: <?php echo $account->Birthday; ?></li>
+				<li class="list-group-item">Mobile: <?php echo $account->mobile; ?></li>
+				<li class="list-group-item">Parent/Guardient Name: <?php echo $account->parentName; ?></li>
+				<li class="list-group-item">Address(P): <?php echo $account->address; ?></li>
+				<li class="list-group-item">Address(L): <?php echo $account->laddress; ?></li>
 			</ul>
 		</div>
-		<?php } 
-		if($account->skills!=NULL){ ?>
-		<div class="row well">
-			<h3>Technical Skills</h3>
-			<ul>
-			<?php foreach ($account->skills as $svalue) {
-				echo "<li>".$svalue."</li>";
-			} ?>
+		<div class="col-sm-9">
+			<h1><?php echo $account->firstname." ";
+			if($account->middlename==""){
+				echo $account->middlename." ";
+			}
+			echo $account->lastname; ?></h1>
+			<ul class="nav nav-tabs">
+				<li class="active"><a data-toggle="tab" href="#Qualification">Qualification</a></li>
+				<li><a data-toggle="tab" href="#skills">Skills</a></li>
+				<li><a data-toggle="tab" href="#accomplishments">Accomplishments</a></li>
+				<li><a data-toggle="tab" href="#workexp">Work Experience</a></li>
+				<li><a data-toggle="tab" href="#menu1">Trainning and Certification</a></li>
 			</ul>
+
+			<div class="tab-content">
+				<div id="Qualification" class="tab-pane fade in active">
+					<h3>Qualification</h3>
+					<ul>
+					<?php foreach ($account->qualification as $qualification) {
+						?><li><?php echo $qualification; ?></li><?php
+					} ?>
+					</ul>
+				</div>
+				<div id="menu1" class="tab-pane fade">
+					<h3>Trainning and Certification</h3>
+					<ul>	
+					<?php foreach ($account->workntrainning as $workntrainning) {
+						?><li><?php echo $workntrainning; ?></li><?php
+					} ?>
+					</ul>
+				</div>
+				<div id="skills" class="tab-pane fade">
+					<h3>Skills</h3>
+					<ul>
+					<?php foreach ($account->skills as $skills) {
+						?><li><?php echo $skills; ?></li><?php
+					} ?>
+					</ul>
+				</div>
+				<div id="accomplishments" class="tab-pane fade">
+					<h3>Accomplishments</h3>
+					<ul>
+					<?php foreach ($account->accomplishments as $accomplishment) {
+						?><li><?php echo $accomplishment; ?></li><?php
+					} ?>
+					</ul>
+				</div>
+				<div id="workexp" class="tab-pane fade">
+					<h3>Work Experience</h3>
+					<ul>
+					<?php foreach ($account->workexp as $workexp) {
+						?><li><?php echo $workexp; ?></li><?php
+					} ?>
+					</ul>
+				</div>
+			</div>
 		</div>
-		<?php } 
-		if($account->accomplishments!=NULL){ ?>
-		<div class="row well">
-			<h3>Accomplishments</h3>
-			<ul>
-			<?php foreach ($account->accomplishments as $avalue) {
-				echo "<li>".$avalue."</li>";
-			} ?>
-			</ul>
-		</div>
-		<?php } 
-		if($account->workexp!=NULL){ ?>
-		<div class="row well">
-			<h3>Work Experience</h3>
-			<ul>
-			<?php foreach ($account->workexp as $evalue) {
-				echo "<li>".$evalue."</li>";
-			} ?>
-			</ul>
-		</div>
-		<?php } 
-		if($account->workntrainning!=NULL){ ?>
-		<div class="row well">
-			<h3>Work and Trainning</h3>
-			<ul>
-			<?php 
-			foreach ($account->workntrainning as $wvalue) {
-				echo "<li>".$wvalue."</li>";
-			} 
-			?>
-			</ul>
-		</div>
-		<?php } ?>
 	</div>
 </body>
 </html>

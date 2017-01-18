@@ -11,6 +11,7 @@
 	<script src="<?php echo $site->getHost(); ?>/js/main.js"></script>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" type="text/css" href="<?php echo $site->getHost(); ?>/css/main.css">
+	<script type="text/javascript" src="<?php echo $site->getHost(); ?>/js/deleteitem.js"></script>
 </head>
 <body>
 <?php getnav(); ?>
@@ -94,14 +95,14 @@ while ($row=$GLOBALS['db']->fetch($ret)) {
 $ret=$GLOBALS['db']->getData('*','main_menu');
 while ($row=$GLOBALS['db']->fetch($ret)) {
 	?>
-		<li><?php echo $row['m_menu_name']; ?><a href="menuremove/<?php echo $row['m_menu_id']; ?>" class="btn btn-link"><span class="glyphicon glyphicon-remove"></span></a href="menuremove/<?php echo $row['m_menu_id']; ?>">
+		<li><?php echo $row['m_menu_name']; ?><button class="deleteitem btn" data-object="menuremove/<?php echo $row['m_menu_id']; ?>" class="btn btn-link"><span class="glyphicon glyphicon-remove"></span></button>
 		<?php 
 			$ret1=$GLOBALS['db']->getData('*','sub_menu',"`m_menu_id`='".$row['m_menu_id']."'"); 
 			if($ret1){
 				?><ul><?php
 				while ($row1=$GLOBALS['db']->fetch($ret1)) {
 					?>
-			<li><?php echo $row1['s_menu_name']; ?><a href="menuremove/<?php echo $row1['m_menu_id']; ?>-<?php echo $row1['s_menu_id']; ?>" class="btn btn-link"><span class="glyphicon glyphicon-remove"></span></a></li>
+			<li><?php echo $row1['s_menu_name']; ?><button class="deleteitem btn" href="menuremove/<?php echo $row1['m_menu_id']; ?>-<?php echo $row1['s_menu_id']; ?>" class="btn btn-link"><span class="glyphicon glyphicon-remove"></span></a></li>
 					<?php
 				}
 				?></ul><?php

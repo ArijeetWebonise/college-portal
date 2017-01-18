@@ -1,0 +1,7 @@
+.questionlist{
+	overflow:hidden;
+	max-height: 0;
+}
+.viewquestion{
+	max-height: 1000px;
+}
