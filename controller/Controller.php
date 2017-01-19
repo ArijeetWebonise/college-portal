@@ -1,6 +1,7 @@
 <?php
 session_start();
 include_once("controller/sessioncontroller.php");
+include_once('phpClass/uploadimage.php');
 include_once("model/Model.php");
 
 function getnav()

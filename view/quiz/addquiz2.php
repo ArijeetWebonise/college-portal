@@ -8,7 +8,9 @@ $para=array(
 	'sub'=>$_REQUEST['sub'],
 	'quizDate'=>$_REQUEST['quizDate']
 ); 
-$qno=1;
-$this->model->createQuiz($para);
-$this->model->AddQuestion($qno,$para,1);
+for ($qno=1; $qno <= $_REQUEST['noofquestion']; $qno++) { 
+	var_dump($qno);
+}
+// $this->model->createQuiz($para);
+// $this->model->AddQuestion($qno,$para,1);
 ?>

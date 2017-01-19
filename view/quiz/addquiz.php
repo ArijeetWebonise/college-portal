@@ -15,7 +15,7 @@
 <body>
 <?php getnav(); ?>
 	<div class="container">
-		<form action="<?php echo $site->getHost(); ?>/quiz/add/2" method="POST">
+		<form action="<?php echo $site->getHost(); ?>/quiz/add/2" method="POST" enctype="multipart/form-data">
 			<div class="form-group">
 				<label>Quiz Name</label>
 				<input type="text" name="quiz_name" class="form-control">

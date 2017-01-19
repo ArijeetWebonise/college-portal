@@ -22,6 +22,8 @@ class Model {
 	public function AddQuestion($qno,$para,$marks)
 	{	
 		$id;
+		$uploader=new UploadManager();
+		$img=$uploader->uploadImage('imgq'.$qno);
 		if($ret=$this->db->getData('*','quiz_list',"`quiz name`='".$para['quiz_name']."'")){
 			while ($row=$this->db->fetch($ret)) {
 				$id=$row['quiz id'];
@@ -29,7 +31,7 @@ class Model {
 		}else{
 			return FALSE;
 		}
-		if($this->db->InsertData("quiz_question","`quiz_id`,`question_name`,`marks`",$id.",'".$_REQUEST['q'.$qno]."',".$marks))
+		if($this->db->InsertData("quiz_question","`quiz_id`,`image`,`question_name`,`marks`",$id.",'".$img."','".$_REQUEST['q'.$qno]."',".$marks))
 		{
 			$this->addOptions($id,$qno,$_REQUEST['q'.$qno]);
 			return TRUE;
@@ -44,8 +46,8 @@ class Model {
 			while ($row=$this->db->fetch($ret)) {
 				$id=$row['question_id'];
 				for ($i=1; $i <= 4; $i++) { 
-					$ans=$_REQUEST['ansq'.$qno.'op'.$i]==1?TRUE:FALSE;
-					if(!$this->db->InsertData("quiz_options","`quiz id`,`question_id`,`isanswer`,`option_value`",$quizid.",".$id.",".$ans.",'".$_REQUEST['q'.$qno."op".$i]."'")){
+					// $ans=$_REQUEST['ansq'.$qno.'op'.$i]==1?TRUE:FALSE;
+					if(!$this->db->InsertData("quiz_options","`quiz id`,`question_id`,`isanswer`,`option_value`",$quizid.",".$id.",0,'".$_REQUEST['q'.$qno."op".$i]."'")){
 						return FALSE;
 					}
 				}
