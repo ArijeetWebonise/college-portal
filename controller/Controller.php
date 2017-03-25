@@ -56,34 +56,55 @@ class Controller {
 				include 'view/login.php';
 			}
 		}else if($control=="test"){
-			if(isset($_REQUEST['type'])){
-				if ($_REQUEST['type']=='file') {
-					if(!isset($_REQUEST['user'])){
-						include_once 'view/test/filetest.php';
-					}else{
-						include_once 'view/test/filesubmit.php';
-					}
-				}else{
-					include_once 'view/test/testserver.php';
-				}
+			if (!isset($_REQUEST['type'])) {
+				$quizlist=$this->model->GetQuizList();
+				include_once 'view/test/quizlist.php';
+			}else if($_REQUEST['type']=='testserver'){
+				$quiz=$this->model->GetQuiz($_REQUEST['user']);
+				include_once 'view/test/testserver.php';
+			}else if($_REQUEST['type']=='create'){
+				include_once 'view/test/testcreate.php';
+			}else if($_REQUEST['type']=='submit'){
+				include_once 'view/test/testsubmit.php';
+			}else if($_REQUEST['type']=='xls'){
+				include_once 'phpClass/xlsClass.php';
+				$xls=XLSReaderFacade::CreateXLSReader('Book1.xls');
+				include_once 'view/test/xls.php';
 			}else{
 				include_once 'view/test/test.php';
 			}
 		}else if($control=="quiz"){
-			if($_REQUEST['type']=='view'){
-				if(isset($_REQUEST['user'])){	
-					$quiz=$this->model->GetQuiz($_REQUEST['user']);
-					include_once 'view/quiz/viewquiz.php';
-				}else{
-					$quiz=$this->model->GetQuizlist();
-					include_once 'view/quiz/quizlist.php';
-				}
-			}else if($_REQUEST['type']=='add'){
+			if(isset($_REQUEST['type'])){
+				if($_REQUEST['type']=="testserver"){
+					// var_dump($_REQUEST);
+					if(isset($_REQUEST['user'])){
+						$quiz=$this->model->GetQuiz($_REQUEST['user']);
+						if($quiz==false){
+							?>
+{
+	"ERROR":"Not Fount"
+}
+							<?php
+						}else{
+							include_once 'view/quiz/testserver.php';
+						}
+					}else{
+						$quizlist=$this->model->GetQuizList();
+						include_once 'view/quiz/testserver2.php';
+					}
+				}else if($_REQUEST['type']=='add'){
 				if(isset($_REQUEST['user'])){
 					include_once 'view/quiz/addquiz2.php';
 				}else{
 					include_once 'view/quiz/addquiz.php';
 				}
+			}else{
+					$quiz=$this->model->GetQuiz($_REQUEST['type']);
+					include_once 'view/quiz/test.php';
+				}
+			}else{
+					$quizlist=$this->model->GetQuizList();
+					include_once 'view/quiz/quizlist.php';
 			}
 		}else if($control=="account"){
 			if(!isset($_REQUEST['user'])||$_REQUEST['user']==''){

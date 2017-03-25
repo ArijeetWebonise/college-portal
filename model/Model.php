@@ -215,7 +215,10 @@ class Model {
 	public function getEvent($eventid)
 	{
 		$eventlist = $this->getEventList();
-		return $eventlist[$eventid];
+		if (isset($eventlist[$eventid])) {
+			return $eventlist[$eventid];
+		}
+		return null;
 	}
 
 	public function getAttendanceList(){
@@ -411,6 +414,8 @@ class Model {
 				$r=array();
 				$r['question_id']=$row['question_id'];
 				$r['question']=$row['question_name'];
+				$r['image']=$row['image'];
+				$r['question_type']=$row['question type'];
 				$r['marks']=$row['marks'];
 				$r['options']=$this->getOptions($row['question_id']);
 				array_push($q, new question($r));
@@ -441,7 +446,10 @@ class Model {
 	}
 	public function GetQuiz($quizid)
 	{
-		return $this->GetQuizList()[$quizid];
+		if (isset($this->GetQuizList()[$quizid])) {
+			return $this->GetQuizList()[$quizid];
+		}
+		return false;
 	}
 }
 

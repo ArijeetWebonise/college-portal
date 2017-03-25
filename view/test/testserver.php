@@ -1,10 +1,34 @@
-[
-<?php 
-$list=array(array('x'=>'Arijeet','y'=>45),array('x'=>'Anchit','y'=>55));
-foreach ($list as $key => $value) {
+{
+"name"			:		"<?php echo $quiz['quiz_name']; ?>",
+"time"			:		<?php echo $quiz['duration']; ?>,
+"question":[<?php foreach ($quiz['question'] as $key => $question) { 
 	if($key!=0){
-		echo ",";
+		echo ',';
 	}
-	?>{ "x": "<?php echo $value['x']; ?>", "y": <?php echo $value['y']; ?> }<?php
-} ?>
-]
+	$ans=null;
+	?>
+	{
+		"question"      :   "Q<?php echo ($key+1).$question->question; ?>",
+		"image"         :   <?php if($question->image!=''){
+				echo '"'.$question->image.'"';
+			}else{
+				echo 'null';
+				} ?>,
+		"marks"			:	<?php echo $question->marks; ?>,
+		"choices"       :   [
+		<?php foreach ($question->options as $ckey => $choices) { 
+			if($ckey!=0)
+				echo ",";
+			?>
+			"<?php echo $choices['option_value']; ?>"
+		<?php 
+			if($choices['isanswer']){
+				$ans=$choices['option_value'];
+			}
+		} 
+		?>
+		],
+		"correct"       :   "<?php echo $ans; ?>"
+	}
+	<?php } ?>
+]}

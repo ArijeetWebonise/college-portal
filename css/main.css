@@ -3,3 +3,23 @@
 	height: 34%;
 	padding-bottom: 10px;
 }
+#startview{
+	overflow:hidden;
+}
+#testview{
+	overflow:hidden;
+}
+
+.hidepart{
+	max-height: 0;
+}
+
+.qimage{
+	overflow:hidden;
+}
+.hideimage{
+	max-height: 0;
+}
+.showimage{
+	max-height: 1000;
+}

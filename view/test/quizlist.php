@@ -22,16 +22,18 @@
 		<th>Created by</th>
 		<th>Subject</th>
 		<th>Date</th>
+		<th>Action</th>
 	</tr>
 	<?php 
 	$f=FALSE;
 	foreach ($quizlist as $quiz) {
 		?>
 	<tr>
-		<td><a href="<?php echo $site->getHost(); ?>/quiz/<?php echo $quiz['quiz_id']; ?>"><?php echo $quiz['quiz_name']; ?></a></td>
+		<td><?php echo $quiz['quiz_name']; ?></td>
 		<td><?php echo $quiz['createdby']; ?></td>
 		<td><?php echo $quiz['subject']; ?></td>
 		<td><?php echo $quiz['Date']; ?></td>
+		<td class="btn-group"><div class="btn btn-success addQuestion" data-id="<?php echo $quiz['quiz_id']; ?>"><span class="glyphicon glyphicon-plus"></span></div><div class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></div><div class="btn btn-info"><span class="glyphicon glyphicon-pencil"></span></div></td>
 	</tr>
 		<?php
 	} ?>

@@ -15,18 +15,18 @@
 <body>
 <?php getnav(); ?>
 	<div class="container">
-		<form action="<?php echo $site->getHost(); ?>/quiz/add/2" method="POST" enctype="multipart/form-data">
+		<form id="addquizform" action="<?php echo $site->getHost(); ?>/quiz/add/2" method="POST" enctype="multipart/form-data">
 			<div class="form-group">
 				<label>Quiz Name</label>
-				<input type="text" name="quiz_name" class="form-control">
+				<input type="text" name="quiz_name" class="quiz_name form-control">
 			</div>	
 			<div class="form-group">
 				<label>Duration</label>
-				<input type="number" name="duration" class="form-control">
+				<input type="number" name="duration" class="duration form-control">
 			</div>
 			<div class="form-group">
 				<label>Department</label>
-				<select name="dept" class="form-control">
+				<select name="dept" class="dept form-control">
 					<?php for ($i=0; $i < 5; $i++) { 
 						?><option>dept<?php echo $i; ?></option><?php
 					} ?>
@@ -34,16 +34,16 @@
 			</div>
 			<div class="form-group">
 				<label>Subject</label>
-				<select name="sub" class="form-control">
+				<select name="sub" class="sub form-control">
 					<?php for ($i=0; $i < 5; $i++) { 
 						?><option>sub<?php echo $i; ?></option><?php
 					} ?>
 				</select>
 			</div>
 			<div class="form-group">
-			<input type="hidden" name="noofquestion" class="form-control" value="0" value="noofq">
+			<input type="hidden" name="noofquestion" class="noofquestion form-control" value="0">
 				<label>Date</label>
-				<input type="date" name="quizDate" class="form-control">
+				<input type="date" name="quizDate" class="quizDate form-control">
 			</div>
 			<div class="container">
 				<div class="form-group">

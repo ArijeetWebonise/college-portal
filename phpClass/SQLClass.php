@@ -99,7 +99,7 @@ class MySQLFactory implements SQLObserver
 		$sql = "UPDATE $table SET $newdata WHERE $condition";
 		var_dump($sql);
 		if ($this->conn->query($sql) === TRUE) {
-			return TRUE;
+			return mysqli_affected_rows($this->conn);
 		} else {
 			return FALSE;
 			}

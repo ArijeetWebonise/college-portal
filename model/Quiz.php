@@ -4,6 +4,8 @@ class Question
 {
 	public $question_id;
 	public $question;
+	public $question_type;
+	public $image;
 	public $marks;
 	public $options;
 
@@ -11,8 +13,10 @@ class Question
 	{
 		$this->question_id=$data['question_id'];
 		$this->question=$data['question'];
+		$this->image=$data['image'];
 		$this->marks=$data['marks'];
 		$this->options=$data['options'];
+		$this->question_type=$data['question_type'];
 	}
 }
 
