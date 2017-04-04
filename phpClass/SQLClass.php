@@ -3,8 +3,6 @@
 interface SQLObserver{
 	public function GetData($fields,$table);
 	// public function InsertData($table,$newdata);
-	//public function createTable();
-	public function fetch($result);
 	public function UpdateData($table,$newdata,$condition);
 	public function DeleteData($table,$condition);
 	public function CloseConn();
@@ -54,14 +52,14 @@ class MySQLFactory implements SQLObserver
 		}
 		$result = $this->conn->query($sql);
 		if ($result->num_rows > 0) {
-			return $result;
+			$ret=array();
+			while($row=$result->fetch_assoc()){
+				array_push($ret, $row);
+			}
+			return $ret;
 		} else {
 			return FALSE;
 		}
-	}
-
-	public function fetch($result){
-		return $result->fetch_assoc();
 	}
 
 	public function createTable($table,$data){
@@ -87,7 +85,7 @@ class MySQLFactory implements SQLObserver
 
 	public function InsertData($table,$fields,$value){
 		$sql = "INSERT INTO $table ($fields) VALUES ($value)";
-		var_dump($sql);
+
 		if ($this->conn->query($sql) === TRUE) {
 			return TRUE;
 		} else {
@@ -97,7 +95,7 @@ class MySQLFactory implements SQLObserver
 	
 	public function UpdateData($table,$newdata,$condition){
 		$sql = "UPDATE $table SET $newdata WHERE $condition";
-		var_dump($sql);
+
 		if ($this->conn->query($sql) === TRUE) {
 			return mysqli_affected_rows($this->conn);
 		} else {

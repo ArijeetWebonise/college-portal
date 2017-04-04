@@ -39,7 +39,8 @@ class SiteData implements siteDetail
 
 $ret=$db->GetData("`metaname`,`metadata`","site_meta","userid=0");
 $list=array();
-while ($row=$db->fetch($ret)) {
+foreach ($ret as $key => $row) {
+	# code...
 	$list[$row['metaname']]=$row['metadata'];
 }
 $site=new SiteData($list);

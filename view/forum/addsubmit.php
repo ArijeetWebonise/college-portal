@@ -1,4 +1,5 @@
 <?php
+var_dump($_REQUEST);
 $tbl_name="forum_question"; // Table name 
 
 // get data that sent from form 

@@ -16,13 +16,7 @@
 <?php
 
 getnav();
-
-$tbl_name="forum_question"; // Table name 
-
-// get value of id that sent from address bar 
-$id=$_REQUEST['user'];
-$result=$GLOBALS['db']->GetData('*',$tbl_name,"id='$id'");
-$rows=$GLOBALS['db']->fetch($result);
+$rows=$mod->GetData();
 ?>
 <div class="container">
 <h2><?php echo $rows['topic']; ?></h2>
@@ -34,33 +28,29 @@ By : <?php echo $rows['prn']; ?> <br>
 
 <?php
 
-$tbl_name2="forum_answer"; // Switch to table "forum_answer"
-$sql2="SELECT * FROM $tbl_name2 WHERE question_id='$id'";
-$result2=$GLOBALS['db']->GetData('*',$tbl_name2,"question_id='$id'");
-while($rows=$GLOBALS['db']->fetch($result2)){
+$result2=$rows['answer'];
+if(!empty($result2)){
+foreach ($result2 as $ans) {
 ?>
 <div class="well container">
-<strong><?php echo $rows['a_prn']; ?></strong>  <?php echo $rows['a_datetime']; ?>
+<strong><?php echo $ans['a_prn']; ?></strong>  <?php echo $ans['a_datetime']; ?>
 <br>
-<?php echo $rows['a_answer']; ?>
+<?php echo $ans['a_answer']; ?>
 </div>
  <br>
 <?php
 }
-
-$result3=$GLOBALS['db']->GetData('view',$tbl_name,"id='$id'");
-$rows=$GLOBALS['db']->fetch($result3);
-$view=$rows['view'];
- 
-// if have no counter value set counter = 1
-if(empty($view)){
-$view=1;
-$result4=$GLOBALS['db']->UpdateData($tbl_name,"view='$view'","id='$id'");
 }
- 
+$view=$rows['view'];
+// if have no counter value set counter = 1
+if($view==0){
+$view=1;
+$result4=$GLOBALS['db']->UpdateData('forum_question',"view='$view'","id='".$_REQUEST['id']."'");
+}else{
 // count more value
 $addview=$view+1;
-$result5=$GLOBALS['db']->UpdateData($tbl_name,"view=$view","id='$id'");
+$result5=$GLOBALS['db']->UpdateData('forum_question',"view=$addview","id='".$_REQUEST['id']."'");
+}
 
 if(isset($_SESSION['prn'])){
 ?>

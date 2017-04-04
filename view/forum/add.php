@@ -14,7 +14,7 @@
 <body>
 	<?php getnav(); ?>
 	<div class="container">
-		<form id="form1" name="form1" method="post" action="<?php echo $site->getHost(); ?>/forum/create/result">
+		<form id="form1" name="form1" method="post" action="<?php echo $site->getHost(); ?>/forum/addsubmit">
 		<div class="form-group">
 			<label>Topic</label>
 			<input name="topic" class="form-control" type="text" id="topic" size="50" />

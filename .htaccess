@@ -9,8 +9,10 @@ deny from all
 
 RewriteEngine On
 
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
 # Handle requests for "View Only Page"
-RewriteRule ^([A-Za-z0-9-]+)/?$    index.php?page=$1    [NC,L]
-RewriteRule ^([A-Za-z0-9-]+)/([A-Za-z0-9-]+)?$    index.php?page=$1&type=$2    [NC,L]
-RewriteRule ^([A-Za-z0-9-]+)/([A-Za-z0-9-]+)/([A-Za-z0-9-]+)?$    index.php?page=$1&type=$2&user=$3    [NC,L]
-RewriteRule ^([A-Za-z0-9-]+)/([A-Za-z0-9-]+)/([A-Za-z0-9-]+)/([A-Za-z0-9-]+)?$    index.php?page=$1&type=$2&user=$3&id=$4    [NC,L]
+RewriteRule ^([A-Za-z0-9-]+)/?$    index.php?type=$1    [NC,L]
+RewriteRule ^([A-Za-z0-9-]+)/([A-Za-z0-9-]+)/?$    index.php?type=$1&method=$2    [NC,L]
+RewriteRule ^([A-Za-z0-9-]+)/([A-Za-z0-9-]+)/([A-Za-z0-9-]+)/?$    index.php?type=$1&method=$2&id=$3    [NC,L]

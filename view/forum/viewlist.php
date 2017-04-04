@@ -13,11 +13,7 @@
 
 <body>
 	<?php getnav(); ?>
-<?php
-$tbl_name="forum_question"; // Table name 
 
-$result=$GLOBALS['db']->GetData("*",$tbl_name);
-?>
 <div class="container">
 	<table width="90%" border="0" align="center" cellpadding="3" cellspacing="1" class="table table-striped table-bordered table-hover">
 		<tr>
@@ -30,15 +26,15 @@ $result=$GLOBALS['db']->GetData("*",$tbl_name);
 
 		<?php
 		// Start looping table row
-		while($rows=$GLOBALS['db']->fetch($result)){
+		foreach ($list as $rows) {
 		 
 		?>
 		<tr>
-			<td><?php echo $rows['id']; ?></td>
-			<td><a href="<?php echo $site->getHost(); ?>/forum/view/<?php echo $rows['id']; ?>"><?php echo $rows['topic']; ?></a><BR></td>
-			<td align="center"><?php echo $rows['view']; ?></td>
-			<td align="center"><?php echo $rows['reply']; ?></td>
-			<td align="center"><?php echo $rows['datetime']; ?></td>
+			<td><?php echo $rows->id; ?></td>
+			<td><a href="<?php echo $site->getHost(); ?>/forum/view/<?php echo $rows->id; ?>"><?php echo $rows->topic; ?></a><BR></td>
+			<td align="center"><?php echo $rows->view; ?></td>
+			<td align="center"><?php echo $rows->reply; ?></td>
+			<td align="center"><?php echo $rows->datetime; ?></td>
 		</tr>
 
 		<?php
@@ -47,7 +43,7 @@ $result=$GLOBALS['db']->GetData("*",$tbl_name);
 		?>
 
 		<tr>
-			<td colspan="5" align="right"><a href="<?php echo $site->getHost(); ?>/forum/create"><strong>Create New Topic</strong> </a></td>
+			<td colspan="5" align="right"><a href="<?php echo $site->getHost(); ?>/forum/add"><strong>Create New Topic</strong> </a></td>
 		</tr>
 	</table>
 </div>

@@ -4,11 +4,23 @@ foreach (glob("model/*.php") as $filename)
 	require_once $filename;
 }
 
+interface ModelObserver{
+	public function GetData();
+	public function SetData($list);
+}
+
+/*
 class Model {
 	private $db;
+	
+	public static $instance;
 
 	public function __construct(){
 		$this->db=$GLOBALS['db'];
+	}
+
+	public static function createInstance(){
+		Model::$instance=new Model();
 	}
 
 	public function createQuiz($para)
@@ -452,5 +464,5 @@ class Model {
 		return false;
 	}
 }
-
+*/
 ?>

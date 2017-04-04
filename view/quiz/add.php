@@ -45,18 +45,7 @@
 				<label>Date</label>
 				<input type="date" name="quizDate" class="quizDate form-control">
 			</div>
-			<div class="container">
-				<div class="form-group">
-					<button class="AddQ btn btn-default">Add Question</button>
-					<input type="submit" name="submit" class="btn btn-default">
-				</div>
-				<div id="Question-Bank">
-				</div>
-				<div class="form-group">
-					<button class="AddQ btn btn-default">Add Question</button>
-					<input type="submit" name="submit" class="btn btn-default">
-				</div>
-			</div>
+			
 		</form>
 	</div>
 </body>

@@ -6,10 +6,6 @@
 	$json = json_decode(file_get_contents($file));
 
 	$controller = new Controller();
-	if(isset($_REQUEST['page'])){
-		$controller->invoke($_REQUEST['page']);
-	}else{
-		$controller->invoke('home');
-	}
+	$controller->invoke();
 
 ?>

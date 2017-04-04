@@ -21,7 +21,7 @@
 			<ul class="nav navbar-nav">
 				<?php 
 	$ret=$GLOBALS['db']->GetData('*','main_menu','TRUE',"ORDER BY `order` ASC");
-	while ($row=$GLOBALS['db']->fetch($ret)) {
+	foreach ($ret as $row) {
 		if(SessionManager::getSession('privileage')===FALSE){
 			$privileage=$row['privileage']+0;
 			if($privileage<5){
@@ -41,7 +41,7 @@
 					<a class="dropdown-toggle" data-toggle="dropdown" href="<?php echo $row['m_menu_link']; ?>"><?php echo $row['m_menu_name']; ?><span class="caret"></span></a>
 				<ul class="dropdown-menu">
 		<?php
-			while ($row2=$GLOBALS['db']->fetch($ret2)) {
+			foreach ($ret2 as $row2) {
 				?>
 					<li><a href="<?php echo $row2['s_menu_link']; ?>"><?php echo $row2['s_menu_name']; ?></a></li>
 				<?php } ?>
