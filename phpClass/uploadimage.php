@@ -11,7 +11,7 @@ class UploadFile
 
 	function __construct($filename)
 	{
-		$this->target_dir = "media/";
+		$this->target_dir = "media/document/";
 		$this->target_file = $this->target_dir . basename($_FILES[$filename]["name"]);
 		$this->imageFileType = pathinfo($this->target_file,PATHINFO_EXTENSION);
 		$this->filename=$filename;
@@ -36,13 +36,12 @@ class UploadFile
 	public function Upload(){
 		if($this->checkIfExcess()){
 			if (move_uploaded_file($_FILES[$this->filename]["tmp_name"], $this->target_file)) {
-				return TRUE;
+				return $this->target_file;
 			} else {
 				return FALSE;
 			}
 		}
-		$temp = explode(".", $_FILES[$this->filename]["name"]);
-		$newfilename = start($temp).1 . '.' . end($temp);
+		return FALSE;
 	}
 }
 ?>

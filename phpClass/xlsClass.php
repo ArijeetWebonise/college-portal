@@ -53,31 +53,23 @@ function SheettoTable($excel){
 
 function SheettoObject($excel){
 	$obj=array();
-	$rowarr=array();
-	$rowlist=array();
 	$flag=TRUE;
 	$maxkey=0;
 	foreach ($excel->GetSheetObject() as $sheets) {
-		foreach ($sheets['cells'] as $row) {
-			foreach ($row as $key => $cell) {
-				$maxkey=$key;
-				if($flag)
-					array_push($rowlist,$cell);
-			}
-			if(!$flag){
-			$i=$maxkey-count($rowlist)+1;
-			foreach ($rowlist as $key) {
-				$rowarr[$key]=$row[$i];
-					$i++;
-				}
-			}
-			if($flag)
-			{
-				$flag=FALSE;
+		$tempsheet=array();
+		$first=array_keys($sheets['cells'])[0];
+		$titles=$sheets['cells'][$first];
+		foreach ($sheets['cells'] as $rownum => $rows) {
+			if($rownum==$first){
 				continue;
 			}
-			array_push($obj, $rowarr);
+			$temp=array();
+			foreach ($rows as $key => $cell) {
+				$temp[$titles[$key]]=$cell;
+			}
+			array_push($tempsheet, $temp);
 		}
+		array_push($obj, $tempsheet);
 	}
 	return $obj;
 }

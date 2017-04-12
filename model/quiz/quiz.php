@@ -30,24 +30,18 @@ class Quiz
 	public $createdby;
 	public $duration;
 	public $noofquestion;
-	public $startdate;
-	public $enddate;
-	public $starttime;
-	public $endtime;
+	public $Date;
 	public $question;
 
 	function __construct($data)
 	{
-		$quiz_id=$data['quiz_id'];
-		$quiz_name=$data['quiz_name'];
-		$createdby=$data['createdby'];
-		$duration=$data['duration'];
-		$noofquestion=$data['noofquestion'];
-		$startdate=$data['startdate'];
-		$enddate=$data['enddate'];
-		$starttime=$data['starttime'];
-		$endtime=$data['endtime'];
-		$question=$data['question'];
+		$this->quiz_id=$data['quiz id'];
+		$this->quiz_name=$data['quiz name'];
+		$this->createdby=$data['createdby'];
+		$this->duration=$data['duration'];
+		$this->noofquestion=$data['noofquestion'];
+		$this->Date=$data['Date'];
+		$this->question=$data['questions'];
 	}
 }
 ?>

@@ -89,7 +89,7 @@ class MySQLFactory implements SQLObserver
 		if ($this->conn->query($sql) === TRUE) {
 			return TRUE;
 		} else {
-			return FALSE;
+			return $this->conn->error;
 		}
 	}
 	

@@ -15,7 +15,7 @@
 <body>
 <?php getnav(); ?>
 	<div class="container">
-		<form id="addquizform" action="<?php echo $site->getHost(); ?>/quiz/add/2" method="POST" enctype="multipart/form-data">
+		<form id="addquizform" action="<?php echo $site->getHost(); ?>/quiz/addquiz" method="POST" enctype="multipart/form-data">
 			<div class="form-group">
 				<label>Quiz Name</label>
 				<input type="text" name="quiz_name" class="quiz_name form-control">
@@ -41,11 +41,14 @@
 				</select>
 			</div>
 			<div class="form-group">
-			<input type="hidden" name="noofquestion" class="noofquestion form-control" value="0">
+				<input type="hidden" name="noofquestion" class="noofquestion form-control" value="0">
 				<label>Date</label>
 				<input type="date" name="quizDate" class="quizDate form-control">
 			</div>
-			
+			<div class="form-group">
+				<input class="form-control" type="file" name="question">
+			</div>
+			<button type="submit" class="btn">Submit</button>
 		</form>
 	</div>
 </body>

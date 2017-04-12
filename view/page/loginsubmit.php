@@ -20,5 +20,6 @@
 		SessionManager::setSession("prn",$ret[0]['prn']);
 		SessionManager::setSession("username",$ret[0][$name]);
 		SessionManager::setSession("privileage",'1');
+		header("Location: ".$site->getHost()."/user/dashboard");
 	}
 ?>
