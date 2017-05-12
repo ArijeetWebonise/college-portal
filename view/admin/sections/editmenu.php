@@ -1,48 +1,45 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title>
-		<?php echo $site->getTitle(); ?>
-	</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-	<script src="<?php echo $site->getHost(); ?>/js/main.js"></script>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-	<link rel="stylesheet" type="text/css" href="<?php echo $site->getHost(); ?>/css/main.css">
-	<script type="text/javascript" src="<?php echo $site->getHost(); ?>/js/deleteitem.js"></script>
-</head>
-<body>
-<?php getnav(); ?>
+<link rel="stylesheet" type="text/css" href="<?php echo $site->getHost(); ?>/css/main.css">
+<script src = "https://code.jquery.com/jquery-1.10.2.js"></script>
+<script src = "https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+
+<script src="<?php echo $site->getHost(); ?>/js/main.js"></script>
+<script type="text/javascript" src="<?php echo $site->getHost(); ?>/js/deleteitem.js"></script>
+
+<style type="text/css">
+	#sortable, .sublist{
+		list-style-type: none;
+	}
+</style>
+
 <div class="container">
-<ul id="sortable">
-<?php 
-$ret=$GLOBALS['db']->getData("*",'main_menu',"TRUE","ORDER BY `order` ASC");
-while ($row=$GLOBALS['db']->fetch($ret)) {
-	$ret1=$GLOBALS['db']->getData("*",'sub_menu',"`m_menu_id`='".$row['m_menu_id']."'","ORDER BY `order` ASC");
-	if($ret1){
-		?>
-	<li id="item<?php echo $row['m_menu_id']; ?>" class="ui-state-default hasItems"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span><?php echo $row['m_menu_name']; ?>
-		<ul class="sublist">
+
+	<ul id="sortable">
 		<?php
-		while ($row1=$GLOBALS['db']->fetch($ret1)) {
+		$ret=$GLOBALS['db']->GetData("*",'main_menu',"TRUE","ORDER BY `order` ASC");
+		foreach ($ret as $row) {
+		 	$ret1=$GLOBALS['db']->GetData("*",'sub_menu',"`m_menu_id`='".$row['m_menu_id']."'","ORDER BY `order` ASC");
+			if($ret1){
+				?>
+			<li id="item<?php echo $row['m_menu_id']; ?>" class="ui-state-default hasItems"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span><?php echo $row['m_menu_name']; ?>
+				<ul class="sublist">
+				<?php
+				foreach ($ret1 as $row1) {
+					?>
+				<li id="<?php echo $row1['m_menu_id'].'_'.$row1['s_menu_id']; ?>"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span><?php echo $row1['s_menu_name']; ?></li>
+					<?php
+				}
+				?></ul><?php
+			}else{
+				?>
+			<li id="item<?php echo $row['m_menu_id']; ?>" class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span><?php echo $row['m_menu_name']; ?>
+				<?php
+			}
 			?>
-		<li id="<?php echo $row1['m_menu_id'].'_'.$row1['s_menu_id']; ?>"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span><?php echo $row1['s_menu_name']; ?></li>
+			</li>
 			<?php
 		}
-		?></ul><?php
-	}else{
 		?>
-	<li id="item<?php echo $row['m_menu_id']; ?>" class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span><?php echo $row['m_menu_name']; ?>
-		<?php
-	}
-	?>
-	</li>
-	<?php
-}
-?>
-</ul>
+	</ul> 
 </div>
 
 <div class="container">
@@ -62,7 +59,7 @@ while ($row=$GLOBALS['db']->fetch($ret)) {
 						<option value="main">Main Menu</option>
 						<?php
 			$ret=$GLOBALS['db']->getData("*",'main_menu');
-			while ($row=$GLOBALS['db']->fetch($ret)){
+			foreach ($ret as $row) {
 				?>
 						<option value="<?php echo $row['m_menu_id']; ?>"><?php echo $row['m_menu_name']; ?></option>
 				<?php
@@ -93,14 +90,14 @@ while ($row=$GLOBALS['db']->fetch($ret)) {
 	<ul>
 			<?php
 $ret=$GLOBALS['db']->getData('*','main_menu');
-while ($row=$GLOBALS['db']->fetch($ret)) {
+foreach ($ret as $row) {
 	?>
 		<li><?php echo $row['m_menu_name']; ?><button class="deleteitem btn" data-object="menuremove/<?php echo $row['m_menu_id']; ?>" class="btn btn-link"><span class="glyphicon glyphicon-remove"></span></button>
 		<?php 
 			$ret1=$GLOBALS['db']->getData('*','sub_menu',"`m_menu_id`='".$row['m_menu_id']."'"); 
 			if($ret1){
 				?><ul><?php
-				while ($row1=$GLOBALS['db']->fetch($ret1)) {
+				foreach ($ret1 as $row1) {
 					?>
 			<li><?php echo $row1['s_menu_name']; ?><button class="deleteitem btn" href="menuremove/<?php echo $row1['m_menu_id']; ?>-<?php echo $row1['s_menu_id']; ?>" class="btn btn-link"><span class="glyphicon glyphicon-remove"></span></a></li>
 					<?php
@@ -120,7 +117,7 @@ while ($row=$GLOBALS['db']->fetch($ret)) {
 				<?php 
 $ret=$GLOBALS['db']->getData('*','main_menu','TRUE',"ORDER BY `order` ASC");
 $i=1;
-while ($row=$GLOBALS['db']->fetch($ret)) {
+foreach ($ret as $row) {
 $ret1=$GLOBALS['db']->getData('*','main_menu','TRUE',"ORDER BY `order` ASC");
 	?>
 				<div class="panel panel-default">
@@ -140,7 +137,7 @@ $ret1=$GLOBALS['db']->getData('*','main_menu','TRUE',"ORDER BY `order` ASC");
 									<select class="form-control">
 										<option value="main" selected="selected">Main</option>
 										<?php
-while ($row1=$GLOBALS['db']->fetch($ret1)) {
+foreach ($ret1 as $row1) {
 	?>
 										<option value="<?php echo $row1['m_menu_id']; ?>"><?php echo $row1['m_menu_name']; ?></option>
 	<?php
@@ -167,7 +164,7 @@ while ($row1=$GLOBALS['db']->fetch($ret1)) {
 	$i++;
 }
 $ret=$GLOBALS['db']->getData('*','sub_menu');
-while ($row=$GLOBALS['db']->fetch($ret)) {
+foreach ($ret as $row) {
 $ret1=$GLOBALS['db']->getData('*','main_menu');
 	?>
 				<div class="panel panel-default">
@@ -187,7 +184,7 @@ $ret1=$GLOBALS['db']->getData('*','main_menu');
 									<select class="form-control">
 										<option value="main">Main</option>
 										<?php
-while ($row1=$GLOBALS['db']->fetch($ret1)) {
+foreach ($ret1 as $row1) {
 	?>
 										<option value="<?php echo $row1['m_menu_id']; ?>" <?php 
 	if($row['m_menu_id']==$row1['m_menu_id']){
@@ -220,5 +217,3 @@ while ($row1=$GLOBALS['db']->fetch($ret1)) {
 	</div>
 	
 </div>
-</body>
-</html>

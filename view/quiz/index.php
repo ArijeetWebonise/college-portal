@@ -13,6 +13,9 @@
 		}
 	}else{
 		if(file_exists('view/'.$_REQUEST['type'].'/'.$_REQUEST['method'].'list.php')){
+			if(file_exists('model/list.php')){
+
+			}
 			include_once 'view/'.$_REQUEST['type'].'/'.$_REQUEST['method'].'list.php';
 		}else if(file_exists('view/'.$_REQUEST['type'].'/'.$_REQUEST['method'].'.php')){
 			include_once 'view/'.$_REQUEST['type'].'/'.$_REQUEST['method'].'.php';

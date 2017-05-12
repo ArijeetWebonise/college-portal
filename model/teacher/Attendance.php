@@ -20,5 +20,16 @@ class Attendance
 		$this->dateofattendance=$list['dateofattendance'];
 		$this->attendance=$list['attendance']=='0'?TRUE:FALSE;
 	}
+
+	public static function GetAttendanceList(){
+		$atts= $GLOBALS['db']->GetData('*','attendance');
+		$newatts=array();
+		foreach ($atts as $att) {
+			$ret= $GLOBALS['db']->GetData('`UserName`','account',"`prn`=".$att['prn']);
+			$att['name']=$ret[0]['UserName'];
+			array_push($newatts, $att);
+		}
+		return $newatts;
+	}
 }
 ?>

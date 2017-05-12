@@ -23,3 +23,8 @@
 .showimage{
 	max-height: 1000;
 }
+#sortable { 
+	margin: 0; 
+	padding: 0; 
+	width: 25%; 
+}

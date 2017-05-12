@@ -24,7 +24,9 @@
 					Updates
 				</h3>
 				<ul>
-					<?php foreach ($events as $event) { ?><li><a href="<?php echo $site->getHost(); ?>/event/view/<?php echo $event['event id']; ?>"><?php echo ($event['event name']); ?></a></li><?php } ?>
+					<li><a href="#">Events</a></li>
+					<li><a href="#">Events</a></li>
+					<li><a href="#">Events</a></li>
 				</ul>
 			</div>
 		</div>
